@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="0dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:background="@color/grayish_white"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/login_tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:fontFamily="@font/mont_light"
+            android:text="Create New Account"
+            android:textColor="@color/redTextColor"
+            android:textSize="20sp"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/btnFacebook"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="30dp"
+
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_tv1" />
+
+        <EditText
+            android:id="@+id/etUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="30dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/ic_menu_camera"
+            android:drawablePadding="15dp"
+            android:fontFamily="@font/mont_light"
+            android:hint="Full name"
+            android:minHeight="45dp"
+            android:paddingLeft="10dp"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnFacebook" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="40dp"
+            android:background="@color/ligh_gray"
+            app:layout_constraintLeft_toLeftOf="@+id/etUsername"
+            app:layout_constraintTop_toBottomOf="@+id/etUsername" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="30dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/ic_menu_camera"
+            android:drawablePadding="15dp"
+            android:fontFamily="@font/mont_light"
+            android:hint="Email adddress"
+            android:minHeight="45dp"
+            android:paddingLeft="10dp"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etUsername" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="40dp"
+            android:background="@color/ligh_gray"
+            app:layout_constraintLeft_toLeftOf="@+id/etEmail"
+            app:layout_constraintTop_toBottomOf="@+id/etEmail" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="30dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/ic_menu_camera"
+            android:drawablePadding="15dp"
+            android:fontFamily="@font/mont_light"
+            android:hint="Password"
+            android:minHeight="45dp"
+            android:paddingLeft="10dp"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etEmail" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="40dp"
+            android:background="@color/ligh_gray"
+            app:layout_constraintLeft_toLeftOf="@+id/etPassword"
+            app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+
+        <EditText
+            android:id="@+id/etConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="30dp"
+            android:background="@null"
+            android:drawableLeft="@drawable/ic_menu_camera"
+            android:drawablePadding="15dp"
+            android:fontFamily="@font/mont_light"
+            android:hint="Confirm Password"
+            android:minHeight="45dp"
+            android:paddingLeft="10dp"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="40dp"
+            android:background="@color/ligh_gray"
+            app:layout_constraintLeft_toLeftOf="@+id/etConfirmPassword"
+            app:layout_constraintTop_toBottomOf="@+id/etConfirmPassword" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/redTextColor"
+            android:fontFamily="@font/mont_regular"
+            android:text="Register"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etConfirmPassword" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/mont_light"
+            android:text="Already Register ?"
+            android:textColor="@color/redTextColor"
+            android:textSize="16sp"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>
