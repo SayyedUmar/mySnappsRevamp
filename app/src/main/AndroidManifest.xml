@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".view.activities.MainActivity" />
+        <activity android:name=".login.LoginActivityNew" />
 
         <meta-data
             android:name="preloaded_fonts"

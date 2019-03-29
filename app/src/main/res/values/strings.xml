@@ -21,4 +21,7 @@
         completions."
     </string>
 
+    <string name="error_format_invalid">Format is invalid</string>
+    <string name="error_too_short">Too short</string>
+
 </resources>
