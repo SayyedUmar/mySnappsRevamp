@@ -88,7 +88,7 @@ dependencies {
     //kotlin dependencies
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //apt 'com.android.databinding:compiler:3.2.0-alpha10'
-    kapt "com.android.databinding:compiler:$android_plugin_version"
+    //kapt "com.android.databinding:compiler:$android_plugin_version"
 
     /*// Android Support Library dependecies
     //implementation "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"

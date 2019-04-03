@@ -11,7 +11,7 @@ import mysnapp.app.dei.com.mysnapp.BuildConfig;
  * Created: 7/24/2018
  * Modified: 7/24/2018
  */
-class Logs {
+public class Logs {
     private static final boolean ENABLE_LOGS = BuildConfig.DEBUG;
 
     private Logs() {
@@ -49,4 +49,17 @@ class Logs {
             Log.e("Exception", e.toString(), e);
         }
     }
+
+    public static void e(String tag, String msg) {
+        if (ENABLE_LOGS) {
+            Log.v(tag, msg);
+        }
+    }
+
+    public static void w(String tag, String msg) {
+        if (ENABLE_LOGS) {
+            Log.v(tag, msg);
+        }
+    }
+
 }

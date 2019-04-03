@@ -6,7 +6,7 @@
 
     <data>
         <variable
-            name="viewModel"
+            name="model"
             type="mysnapp.app.dei.com.mysnapp.login.LoginViewModel" />
     </data>
 
@@ -94,10 +94,13 @@
                 android:background="#F0F0F0"
                 android:drawableLeft="@drawable/ic_profile"
                 android:drawablePadding="15dp"
-                android:fontFamily="@font/mont_regular"
+                android:fontFamily="@font/mont_light"
                 android:hint="Username"
                 android:minHeight="45dp"
                 android:paddingLeft="10dp"
+                android:text="@={model.login.model.email}"
+                app:error="@{model.login.emailError}"
+                app:onFocus="@{model.getEmailOnFocusChangeListener()}"
 
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rellay_login" />
@@ -116,7 +119,9 @@
                 android:hint="Password"
                 android:minHeight="45dp"
                 android:paddingLeft="10dp"
-                android:text="@{viewModel.passwordQuality}"
+                android:text="@={model.login.model.password}"
+                app:error="@{model.login.passwordError}"
+                app:onFocus="@{model.getPasswordOnFocusChangeListener()}"
 
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etUsername" />
@@ -131,8 +136,6 @@
 
                 app:layout_constraintTop_toBottomOf="@+id/etPassword"
                 app:layout_constraintLeft_toLeftOf="@+id/etPassword"
-
-                android:checked="@{viewModel.rememberMe}"
 
                 />
 
@@ -151,6 +154,7 @@
                 android:text="Login"
                 android:textColor="@color/white"
                 android:textSize="20sp"
+                android:onClick="@{() -> model.onButtonClick()}"
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -1,6 +1,6 @@
 package mysnapp.app.dei.com.mysnapp.login.models;
 
-public class LoginFields {
+public class LoginModel {
 
     private String email;
     private String password;

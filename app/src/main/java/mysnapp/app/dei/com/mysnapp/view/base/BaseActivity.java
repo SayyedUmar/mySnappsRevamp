@@ -23,10 +23,7 @@ import dagger.android.support.HasSupportFragmentInjector;
  * Created: 7/24/2018
  * Modified: 7/24/2018
  */
-public abstract class BaseActivity<D extends ViewDataBinding> extends AppCompatActivity implements HasSupportFragmentInjector {
-
-    @Inject
-    DispatchingAndroidInjector<Fragment> fragmentAndroidInjector;
+public abstract class BaseActivity<D extends ViewDataBinding> extends AppCompatActivity {
 
     @SuppressWarnings("unused")
     public D dataBinding;
@@ -41,9 +38,5 @@ public abstract class BaseActivity<D extends ViewDataBinding> extends AppCompatA
         dataBinding = DataBindingUtil.setContentView(this, getLayoutRes());
     }
 
-    @Override
-    public AndroidInjector<Fragment> supportFragmentInjector() {
-        return fragmentAndroidInjector;
-    }
 }
 

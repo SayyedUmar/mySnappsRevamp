@@ -4,14 +4,13 @@ import android.arch.lifecycle.MutableLiveData;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
-
 import mysnapp.app.dei.com.mysnapp.BR;
 import mysnapp.app.dei.com.mysnapp.R;
 
 public class LoginForm extends BaseObservable {
-    private LoginFields fields = new LoginFields();
-    private LoginErrorFields errors = new LoginErrorFields();
-    private MutableLiveData<LoginFields> buttonClick = new MutableLiveData<>();
+    private LoginModel model = new LoginModel();
+    private LoginErrorModel errors = new LoginErrorModel();
+    private MutableLiveData<LoginModel> buttonClick = new MutableLiveData<>();
 
     @Bindable
     public boolean isValid() {
@@ -24,7 +23,7 @@ public class LoginForm extends BaseObservable {
 
     public boolean isEmailValid(boolean setMessage) {
         // Minimum a@b.c
-        String email = fields.getEmail();
+        String email = model.getEmail();
         if (email != null && email.length() > 5) {
             int indexOfAt = email.indexOf("@");
             int indexOfDot = email.lastIndexOf(".");
@@ -49,7 +48,7 @@ public class LoginForm extends BaseObservable {
     }
 
     public boolean isPasswordValid(boolean setMessage) {
-        String password = fields.getPassword();
+        String password = model.getPassword();
         if (password != null && password.length() > 5) {
             errors.setPassword(null);
             notifyPropertyChanged(BR.valid);
@@ -66,16 +65,16 @@ public class LoginForm extends BaseObservable {
 
     public void onClick() {
         if (isValid()) {
-            buttonClick.setValue(fields);
+            buttonClick.setValue(model);
         }
     }
 
-    public MutableLiveData<LoginFields> getLoginFields() {
+    public MutableLiveData<LoginModel> getLoginFields() {
         return buttonClick;
     }
 
-    public LoginFields getFields() {
-        return fields;
+    public LoginModel getModel() {
+        return model;
     }
 
     @Bindable

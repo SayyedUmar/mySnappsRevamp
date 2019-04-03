@@ -1,6 +1,6 @@
 package mysnapp.app.dei.com.mysnapp.login.models;
 
-public class LoginErrorFields {
+public class LoginErrorModel {
 
     private Integer email;
     private Integer password;

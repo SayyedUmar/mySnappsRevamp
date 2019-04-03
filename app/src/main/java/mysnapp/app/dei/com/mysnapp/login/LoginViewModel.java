@@ -1,21 +1,25 @@
 package mysnapp.app.dei.com.mysnapp.login;
 
-import android.databinding.BaseObservable;
+import android.arch.lifecycle.ViewModel;
 import android.databinding.Bindable;
+import android.databinding.BindingAdapter;
+import android.support.annotation.VisibleForTesting;
+import android.view.View;
+import android.widget.EditText;
 
-import mysnapp.app.dei.com.mysnapp.login.models.LoginFields;
+import mysnapp.app.dei.com.mysnapp.login.models.LoginForm;
+import mysnapp.app.dei.com.mysnapp.login.models.LoginModel;
 
-public class LoginViewModel extends BaseObservable {
+public class LoginViewModel extends ViewModel {
 
-    private String username;
-    private String password;
-    private boolean rememberMe;
-
-    private LoginFields loginModel;
-
+    //private LoginModel loginModel;
+    private LoginForm login;
+    private View.OnFocusChangeListener onFocusEmail;
+    private View.OnFocusChangeListener onFocusPassword;
 
 
-    @Bindable
+
+  /*  @Bindable
     public Boolean getRememberMe() {
         return loginModel.rememberMe;
     }
@@ -28,27 +32,68 @@ public class LoginViewModel extends BaseObservable {
             // React to the change.
 //            saveData();
 
-            // Notify observers of a new value.
-//            notifyPropertyChanged(BR.remember_me);
+            //notifyPropertyChanged(BR.rememberMe);
         }
+    }*/
+
+    @VisibleForTesting
+    public void init() {
+        login = new LoginForm();
+        onFocusEmail =  new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View view, boolean focused) {
+                EditText et = (EditText) view;
+                if (et.getText().length() > 0 && !focused) {
+                    login.isEmailValid(true);
+                }
+            }
+        };
+
+        onFocusPassword = new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View view, boolean focused) {
+                EditText et = (EditText) view;
+                if (et.getText().length() > 0 && !focused) {
+                    login.isPasswordValid(true);
+                }
+            }
+        };
     }
 
-    @Bindable
-    public String getPasswordQuality() {
-        if (password == null || password.isEmpty()) {
-            return "Enter a password";
-        } else if (password.equals("password")) {
-            return "Very bad";
-        } else if (password.length() < 6) {
-            return "Short";
+
+    @BindingAdapter("error")
+    public static void setError(EditText editText, Object strOrResId) {
+        if (strOrResId instanceof Integer) {
+            editText.setError(
+                    editText.getContext().getString((Integer) strOrResId));
         } else {
-            return "Okay";
+            editText.setError((String) strOrResId);
         }
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-        //notifyPropertyChanged(BR.passwordQuality);
+    @BindingAdapter("onFocus")
+    public static void bindFocusChange(EditText editText, View.OnFocusChangeListener onFocusChangeListener) {
+        if (editText.getOnFocusChangeListener() == null) {
+            editText.setOnFocusChangeListener(onFocusChangeListener);
+        }
+    }
+
+    public View.OnFocusChangeListener getEmailOnFocusChangeListener() {
+        return onFocusEmail;
+    }
+
+    public View.OnFocusChangeListener getPasswordOnFocusChangeListener() {
+        return onFocusPassword;
+    }
+
+    public void onButtonClick() {
+        login.onClick();
+    }
+
+    public LoginForm getLogin() {
+        return login;
     }
 
 }
