@@ -33,7 +33,7 @@ public abstract class BaseActivity<D extends ViewDataBinding> extends AppCompatA
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
+        //AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         dataBinding = DataBindingUtil.setContentView(this, getLayoutRes());
     }

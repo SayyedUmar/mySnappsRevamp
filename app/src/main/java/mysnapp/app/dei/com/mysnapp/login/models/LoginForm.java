@@ -1,11 +1,15 @@
 package mysnapp.app.dei.com.mysnapp.login.models;
 
 import android.arch.lifecycle.MutableLiveData;
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import mysnapp.app.dei.com.mysnapp.BR;
 import mysnapp.app.dei.com.mysnapp.R;
+import mysnapp.app.dei.com.mysnapp.utils.Const;
+import mysnapp.app.dei.com.mysnapp.utils.Logs;
+import mysnapp.app.dei.com.mysnapp.utils.MyPreferences;
 
 public class LoginForm extends BaseObservable {
     private LoginModel model = new LoginModel();
@@ -38,8 +42,7 @@ public class LoginForm extends BaseObservable {
                 }
                 return false;
             }
-        }
-        if (setMessage) {
+        } else if (setMessage) {
             errors.setEmail(R.string.error_too_short);
             notifyPropertyChanged(BR.valid);
         }
@@ -49,7 +52,7 @@ public class LoginForm extends BaseObservable {
 
     public boolean isPasswordValid(boolean setMessage) {
         String password = model.getPassword();
-        if (password != null && password.length() > 5) {
+        if (password != null && password.length() > 7) {
             errors.setPassword(null);
             notifyPropertyChanged(BR.valid);
             return true;
@@ -58,14 +61,18 @@ public class LoginForm extends BaseObservable {
                 errors.setPassword(R.string.error_too_short);
                 notifyPropertyChanged(BR.valid);
             }
-
             return false;
         }
     }
 
-    public void onClick() {
+    public void onClick(Context context) {
         if (isValid()) {
-            buttonClick.setValue(model);
+            MyPreferences.setBoolValue(context, Const.REMEMBER_ME, model.rememberMe);
+            if (model.rememberMe) {
+                MyPreferences.setStringValue(context, Const.USERNAME, model.getEmail());
+                MyPreferences.setStringValue(context, Const.PASSWORD, model.getPassword());
+            }
+            Logs.shortToast(context, "Successful login");
         }
     }
 
@@ -86,4 +93,19 @@ public class LoginForm extends BaseObservable {
     public Integer getPasswordError() {
         return errors.getPassword();
     }
+
+    @Bindable
+    public Boolean getRememberMe() {
+        return model.rememberMe;
+    }
+
+    public void rememberMeChanged(boolean value) {
+        // Avoids infinite loops.
+        if (model.rememberMe != value) {
+            model.rememberMe = value;
+
+            notifyPropertyChanged(BR.rememberMe);
+        }
+    }
+
 }

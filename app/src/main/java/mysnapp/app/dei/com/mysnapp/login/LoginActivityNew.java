@@ -23,7 +23,7 @@ public class LoginActivityNew extends BaseActivity<ActivityLogin1Binding> {
         super.onCreate(savedInstanceState);
         viewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
         if (savedInstanceState == null) {
-            viewModel.init();
+            viewModel.init(this);
         }
         dataBinding.setModel(viewModel);
     }

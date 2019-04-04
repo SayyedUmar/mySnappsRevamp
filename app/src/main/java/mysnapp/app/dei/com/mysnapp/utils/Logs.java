@@ -1,6 +1,8 @@
 package mysnapp.app.dei.com.mysnapp.utils;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import mysnapp.app.dei.com.mysnapp.BuildConfig;
 
@@ -59,6 +61,18 @@ public class Logs {
     public static void w(String tag, String msg) {
         if (ENABLE_LOGS) {
             Log.v(tag, msg);
+        }
+    }
+
+    public static void shortToast(Context context, String msg) {
+        if (ENABLE_LOGS) {
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public static void longToast(Context context, String msg) {
+        if (ENABLE_LOGS) {
+            Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
         }
     }
 
