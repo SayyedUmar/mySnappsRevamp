@@ -22,15 +22,19 @@
             </intent-filter>
         </activity>-->
 
-        <activity android:name=".login.LoginActivityNew"
+        <activity android:name=".splash.SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".login.LoginActivityNew"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <meta-data
             android:name="preloaded_fonts"

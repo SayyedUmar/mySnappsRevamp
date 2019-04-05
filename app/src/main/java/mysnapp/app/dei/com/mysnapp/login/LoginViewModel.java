@@ -51,8 +51,7 @@ public class LoginViewModel extends ViewModel {
     @BindingAdapter("error")
     public static void setError(EditText editText, Object strOrResId) {
         if (strOrResId instanceof Integer) {
-            editText.setError(
-                    editText.getContext().getString((Integer) strOrResId));
+            editText.setError(editText.getContext().getString((Integer) strOrResId));
         } else {
             editText.setError((String) strOrResId);
         }
@@ -64,13 +63,6 @@ public class LoginViewModel extends ViewModel {
             editText.setOnFocusChangeListener(onFocusChangeListener);
         }
     }
-
-    /*@BindingAdapter("onCheckChange")
-    public static void onCheckChange(CheckBox checkBox, CheckBox.OnCheckedChangeListener listener) {
-        if (checkBox.getOnC == null) {
-            checkBox.setOnCheckedChangeListener(listener);
-        }
-    }*/
 
     public void checkedChangedListener (View v, boolean isChecked) {
         login.rememberMeChanged(isChecked);
