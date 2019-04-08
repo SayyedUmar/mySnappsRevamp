@@ -5,10 +5,12 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
+import io.reactivex.Observable;
 import mysnapp.app.dei.com.mysnapp.BR;
 import mysnapp.app.dei.com.mysnapp.R;
+import mysnapp.app.dei.com.mysnapp.common.ResponseModel;
+import mysnapp.app.dei.com.mysnapp.repos.LoginRepo;
 import mysnapp.app.dei.com.mysnapp.utils.Const;
-import mysnapp.app.dei.com.mysnapp.utils.Logs;
 import mysnapp.app.dei.com.mysnapp.utils.MyPreferences;
 
 public class LoginForm extends BaseObservable {
@@ -65,15 +67,16 @@ public class LoginForm extends BaseObservable {
         }
     }
 
-    public void onClick(Context context) {
+    public boolean isValidData(Context context) {
         if (isValid()) {
             MyPreferences.setBoolValue(context, Const.REMEMBER_ME, model.rememberMe);
             if (model.rememberMe) {
                 MyPreferences.setStringValue(context, Const.USERNAME, model.getEmail());
                 MyPreferences.setStringValue(context, Const.PASSWORD, model.getPassword());
             }
-            Logs.shortToast(context, "Successful login");
+            return true;
         }
+        return false;
     }
 
     public MutableLiveData<LoginModel> getLoginFields() {

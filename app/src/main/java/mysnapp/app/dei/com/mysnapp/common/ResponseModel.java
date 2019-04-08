@@ -13,8 +13,7 @@ import java.util.List;
  */
 public class ResponseModel<T> {
 
-
     public String ResponseCode;
     public String ResponseMessage;
-    public List<T> data;
+    public List<T> Data;
 }

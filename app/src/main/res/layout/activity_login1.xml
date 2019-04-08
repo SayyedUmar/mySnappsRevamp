@@ -156,12 +156,15 @@
                 android:text="Login"
                 android:textColor="@color/white"
                 android:textSize="20sp"
+
                 android:onClick="@{(v) -> model.onButtonClick(v)}"
                 android:enabled="@{model.login.valid}"
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/chkRememberMe" />
+
+            <!--android:onClick="@{(v) -> model.onButtonClick(v)}"-->
 
             <RelativeLayout
                 android:id="@+id/rellay_login2"

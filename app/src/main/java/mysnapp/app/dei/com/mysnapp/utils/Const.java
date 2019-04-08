@@ -13,7 +13,7 @@ public class Const {
     public static String GUID;
 
 
-    private static String BASE_URL = "";
+    public static String ROOT_URL = "";
 
     static {
         //setting server Urls
@@ -22,14 +22,14 @@ public class Const {
                 GUID = "130894670710409803";
                 ServicePassword = "ATP";
                 ServiceUserId = "ATP";
-                BASE_URL = "http://mysnapps.mydeievents.com:90/AndroidService.svc/";
+                ROOT_URL = "http://mysnapps.mydeievents.com:90/AndroidService.svc/";
                 break;
 
             case ATLANTIS_BETA:
                 GUID = "130894670710409803";
                 ServicePassword = "ATP";
                 ServiceUserId = "ATP";
-                BASE_URL = "http://mobileservicebeta.mydeievents.com/AndroidService.svc/";
+                ROOT_URL = "http://mobileservicebeta.mydeievents.com/AndroidService.svc/";
                 break;
         }
     }
