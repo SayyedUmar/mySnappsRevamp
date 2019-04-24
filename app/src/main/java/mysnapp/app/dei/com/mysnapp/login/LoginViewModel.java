@@ -1,6 +1,7 @@
 package mysnapp.app.dei.com.mysnapp.login;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.databinding.BindingAdapter;
@@ -30,7 +31,7 @@ public class LoginViewModel extends ViewModel {
     private View.OnFocusChangeListener onFocusEmail;
     private View.OnFocusChangeListener onFocusPassword;
     private LoginRepo repo;
-    public LiveData<ResponseModel> response;
+    MutableLiveData<ResponseModel> response;
 
 
     @VisibleForTesting
@@ -90,37 +91,41 @@ public class LoginViewModel extends ViewModel {
 
     public void onButtonClick(View view) {
         if (login.isValidData(view.getContext())) {
-            repo.fetchUserData(login.getModel().getEmail(), login.getModel().getPassword())
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeWith(new Observer<ResponseModel>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-                            Log.e("onSubscribe","");
-                        }
-
-                        @Override
-                        public void onNext(ResponseModel responseModel) {
-                            Log.e("onNext","onNext");
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            Log.e("onError","onError");
-                        }
-
-                        @Override
-                        public void onComplete() {
-                            Log.e("onComplete","onComplete");
-                        }
-                    });
+            loginResponse();
         }
-
-
     }
 
     public LoginForm getLogin() {
         return login;
+    }
+
+    void loginResponse() {
+
+        repo.fetchUserData(login.getModel().getEmail(), login.getModel().getPassword())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new Observer<ResponseModel>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        Log.e("onSubscribe","");
+                    }
+
+                    @Override
+                    public void onNext(ResponseModel responseModel) {
+                        Log.e("onNext","onNext");
+                        response.postValue(responseModel);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("onError","onError");
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.e("onComplete","onComplete");
+                    }
+                });
     }
 
 }

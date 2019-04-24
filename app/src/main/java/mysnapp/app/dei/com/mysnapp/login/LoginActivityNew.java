@@ -1,13 +1,16 @@
 package mysnapp.app.dei.com.mysnapp.login;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import mysnapp.app.dei.com.mysnapp.R;
 import mysnapp.app.dei.com.mysnapp.databinding.ActivityLogin1Binding;
+import mysnapp.app.dei.com.mysnapp.utils.Logs;
 import mysnapp.app.dei.com.mysnapp.view.base.BaseActivity;
 
 public class LoginActivityNew extends BaseActivity<ActivityLogin1Binding> {
@@ -43,6 +46,10 @@ public class LoginActivityNew extends BaseActivity<ActivityLogin1Binding> {
                 consumeResponse(apiResponse);
             }
         });*/
+
+        viewModel.response.observe(this, res -> {
+            Logs.shortToast(this, "Got Response");
+        });
 
     }
 
