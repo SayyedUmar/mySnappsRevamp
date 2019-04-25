@@ -1,8 +1,11 @@
 package mysnapp.app.dei.com.mysnapp.common;
 
+import com.google.gson.GsonBuilder;
+
 import java.util.concurrent.TimeUnit;
 
 import mysnapp.app.dei.com.mysnapp.BuildConfig;
+import mysnapp.app.dei.com.mysnapp.common.remote.BooleanTypeAdapter;
 import mysnapp.app.dei.com.mysnapp.utils.Const;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -60,6 +63,9 @@ public class APIClient {
         if (BuildConfig.DEBUG) {
             okHttpBuilder.addInterceptor(loggingInterceptor);
         }
+
+//        GsonBuilder builder = new GsonBuilder();
+//        builder.registerTypeAdapter(Boolean.class, new BooleanTypeAdapter());
 
         return new Retrofit.Builder()
                 .client(okHttpBuilder.build()).baseUrl(url)

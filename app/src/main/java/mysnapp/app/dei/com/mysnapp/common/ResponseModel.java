@@ -1,8 +1,7 @@
 package mysnapp.app.dei.com.mysnapp.common;
 
-import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import mysnapp.app.dei.com.mysnapp.model.Data;
 
 /**
  * The model class which holds the top popular articles data
@@ -15,5 +14,6 @@ public class ResponseModel<T> {
 
     public String ResponseCode;
     public String ResponseMessage;
-    public List<T> Data;
+    public T Data;
 }
+

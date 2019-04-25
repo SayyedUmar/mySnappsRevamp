@@ -5,24 +5,37 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.databinding.BindingAdapter;
+import android.databinding.ObservableBoolean;
+import android.databinding.ObservableChar;
 import android.support.annotation.VisibleForTesting;
 import android.text.BoringLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import mysnapp.app.dei.com.mysnapp.common.APIClient;
 import mysnapp.app.dei.com.mysnapp.common.ResponseModel;
 import mysnapp.app.dei.com.mysnapp.login.models.LoginForm;
 import mysnapp.app.dei.com.mysnapp.login.models.LoginModel;
 import mysnapp.app.dei.com.mysnapp.repos.LoginRepo;
 import mysnapp.app.dei.com.mysnapp.utils.Const;
+import mysnapp.app.dei.com.mysnapp.utils.Logs;
 import mysnapp.app.dei.com.mysnapp.utils.MyPreferences;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class LoginViewModel extends ViewModel {
 
@@ -31,8 +44,7 @@ public class LoginViewModel extends ViewModel {
     private View.OnFocusChangeListener onFocusEmail;
     private View.OnFocusChangeListener onFocusPassword;
     private LoginRepo repo;
-    MutableLiveData<ResponseModel> response;
-
+    public ObservableBoolean showLoader = new ObservableBoolean(false);
 
     @VisibleForTesting
     void init(Context context) {
@@ -91,6 +103,7 @@ public class LoginViewModel extends ViewModel {
 
     public void onButtonClick(View view) {
         if (login.isValidData(view.getContext())) {
+            showLoader.set(true);
             loginResponse();
         }
     }
@@ -101,7 +114,29 @@ public class LoginViewModel extends ViewModel {
 
     void loginResponse() {
 
-        repo.fetchUserData(login.getModel().getEmail(), login.getModel().getPassword())
+        repo.loginUser(login.getModel().getEmail(), login.getModel().getPassword());
+
+      /*repo.fetchUserData1(login.getModel().getEmail(), login.getModel().getPassword())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<Response<ResponseBody>>() {
+                    @Override
+                    public void onNext(Response<ResponseBody> response) {
+                        Log.e("onNext","onNext");
+                        if (response.isSuccessful()){
+                            try {
+                                JSONObject res = new JSONObject(response.body().string());
+                                Log.e("",res.toString());
+                            } catch (Exception e) { e.printStackTrace(); }
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {  Log.e("onError","onError"); }
+                    @Override
+                    public void onComplete() {}
+                });*/
+
+       /* repo.fetchUserData(login.getModel().getEmail(), login.getModel().getPassword())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new Observer<ResponseModel>() {
@@ -118,14 +153,23 @@ public class LoginViewModel extends ViewModel {
 
                     @Override
                     public void onError(Throwable e) {
+                        showLoader.set(false);
                         Log.e("onError","onError");
                     }
 
                     @Override
                     public void onComplete() {
+                        showLoader.set(false);
                         Log.e("onComplete","onComplete");
                     }
-                });
+                });*/
     }
 
+    public void onDestroy () {
+        repo.unsubcribe();
+    }
+
+    public LiveData<Object> getLoginResponse() {
+        return repo.getLoginReponse();
+    }
 }

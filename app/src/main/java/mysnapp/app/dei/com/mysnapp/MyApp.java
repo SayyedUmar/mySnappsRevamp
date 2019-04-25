@@ -1,21 +1,20 @@
 package mysnapp.app.dei.com.mysnapp;
 
 import android.app.Application;
+import android.content.Context;
+
+import com.facebook.stetho.Stetho;
 
 public class MyApp extends Application {
 
-    private static MyApp sInstance;
+    public static MyApp self;
 
-
-    public static MyApp getAppContext() {
-        return sInstance;
+    public static Context getAppContext() {
+        return self;
     }
 
 
 
-    private static synchronized void setInstance(MyApp app) {
-        sInstance = app;
-    }
    /* @Inject
     DispatchingAndroidInjector<Activity> activityDispatchingInjector;*/
 
@@ -23,7 +22,7 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
         initializeComponent();
-        setInstance(this);
+        Stetho.initializeWithDefaults(this);
     }
 
     private void initializeComponent() {

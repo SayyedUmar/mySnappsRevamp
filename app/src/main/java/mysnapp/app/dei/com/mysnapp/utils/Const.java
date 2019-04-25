@@ -2,7 +2,7 @@ package mysnapp.app.dei.com.mysnapp.utils;
 
 public class Const {
 
-    public static final Server SERVER = Server.ATLANTIS_LIVE;
+    public static final Server SERVER = Server.ATLANTIS_BETA;
 
     public static final String REMEMBER_ME = "REMEMBER_ME";
     public static final String USERNAME = "USERNAME";

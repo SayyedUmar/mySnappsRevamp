@@ -1,5 +1,7 @@
 package mysnapp.app.dei.com.mysnapp.login.models;
 
+import android.databinding.ObservableBoolean;
+
 public class LoginModel {
 
     private String email;

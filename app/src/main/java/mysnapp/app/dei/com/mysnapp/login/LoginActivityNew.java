@@ -32,22 +32,7 @@ public class LoginActivityNew extends BaseActivity<ActivityLogin1Binding> {
         }
         dataBinding.setModel(viewModel);
 
-       /* viewModel.getLoginData().observe(this, res -> {
-            Log.e("Observed","Observed");
-        });*/
-
-       /*viewModel.response.observe(this, res -> {
-
-       });*/
-
-        /*viewModel.loginResponse().observe(this, new Observer<ApiResponse>() {
-            @Override
-            public void onChanged(@Nullable ApiResponse apiResponse) {
-                consumeResponse(apiResponse);
-            }
-        });*/
-
-        viewModel.response.observe(this, res -> {
+        viewModel.getLoginResponse().observe(this, res -> {
             Logs.shortToast(this, "Got Response");
         });
 
@@ -56,6 +41,13 @@ public class LoginActivityNew extends BaseActivity<ActivityLogin1Binding> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return false;
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        viewModel.onDestroy();
+        super.onDestroy();
     }
 
 }
