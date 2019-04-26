@@ -2,14 +2,14 @@ package mysnapp.app.dei.com.mysnapp.model;
 
 import java.util.List;
 
-import mysnapp.app.dei.com.mysnapp.data.local.entity.SubstoreEntity;
-import mysnapp.app.dei.com.mysnapp.data.local.entity.UserEntity;
+import mysnapp.app.dei.com.mysnapp.data.local.entity.Substore;
+import mysnapp.app.dei.com.mysnapp.data.local.entity.User;
 
 
 public class Data {
 
-    public UserEntity User;
-    public List<SubstoreEntity> SubStoreDetails;
+    public User User;
+    public List<Substore> SubStoreDetails;
 }
 
 

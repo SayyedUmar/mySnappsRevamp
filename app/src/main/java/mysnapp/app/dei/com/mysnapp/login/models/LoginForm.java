@@ -5,11 +5,8 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
-import io.reactivex.Observable;
 import mysnapp.app.dei.com.mysnapp.BR;
 import mysnapp.app.dei.com.mysnapp.R;
-import mysnapp.app.dei.com.mysnapp.common.ResponseModel;
-import mysnapp.app.dei.com.mysnapp.repos.LoginRepo;
 import mysnapp.app.dei.com.mysnapp.utils.Const;
 import mysnapp.app.dei.com.mysnapp.utils.MyPreferences;
 

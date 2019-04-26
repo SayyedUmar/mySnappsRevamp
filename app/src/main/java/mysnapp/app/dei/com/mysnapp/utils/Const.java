@@ -7,6 +7,7 @@ public class Const {
     public static final String REMEMBER_ME = "REMEMBER_ME";
     public static final String USERNAME = "USERNAME";
     public static final String PASSWORD = "PASSWORD";
+    public static final String DATABASE = "ATPTESTDB";
 
     public static String ServicePassword;
     public static String ServiceUserId;

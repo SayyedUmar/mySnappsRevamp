@@ -5,6 +5,7 @@
     >
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="model"
             type="mysnapp.app.dei.com.mysnapp.login.LoginViewModel" />
@@ -253,6 +254,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 style="?android:attr/progressBarStyle"
+                android:visibility="@{model.showLoader ? View.VISIBLE : View.GONE}"
                 />
 
         </RelativeLayout>

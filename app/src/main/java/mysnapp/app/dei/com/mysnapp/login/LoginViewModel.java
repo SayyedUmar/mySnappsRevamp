@@ -43,12 +43,11 @@ public class LoginViewModel extends ViewModel {
     private LoginForm login;
     private View.OnFocusChangeListener onFocusEmail;
     private View.OnFocusChangeListener onFocusPassword;
-    private LoginRepo repo;
     public ObservableBoolean showLoader = new ObservableBoolean(false);
+    private LoginRepo repo = LoginRepo.getInstance();
 
     @VisibleForTesting
     void init(Context context) {
-        repo = LoginRepo.getInstance();
         login = new LoginForm();
         LoginModel model = login.getModel();
         model.rememberMe = MyPreferences.getBoolValue(context, Const.REMEMBER_ME);
@@ -114,6 +113,7 @@ public class LoginViewModel extends ViewModel {
 
     void loginResponse() {
 
+
         repo.loginUser(login.getModel().getEmail(), login.getModel().getPassword());
 
       /*repo.fetchUserData1(login.getModel().getEmail(), login.getModel().getPassword())
@@ -136,7 +136,7 @@ public class LoginViewModel extends ViewModel {
                     public void onComplete() {}
                 });*/
 
-       /* repo.fetchUserData(login.getModel().getEmail(), login.getModel().getPassword())
+        /*repo.performLogin(login.getModel().getEmail(), login.getModel().getPassword())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new Observer<ResponseModel>() {
@@ -148,7 +148,7 @@ public class LoginViewModel extends ViewModel {
                     @Override
                     public void onNext(ResponseModel responseModel) {
                         Log.e("onNext","onNext");
-                        response.postValue(responseModel);
+                        //response.postValue(responseModel);
                     }
 
                     @Override
@@ -169,7 +169,10 @@ public class LoginViewModel extends ViewModel {
         repo.unsubcribe();
     }
 
-    public LiveData<Object> getLoginResponse() {
+    public LiveData<ResponseModel> getLoginResponse() {
         return repo.getLoginReponse();
+    }
+    public LiveData<Throwable> getLoginError() {
+        return repo.getLoginError();
     }
 }

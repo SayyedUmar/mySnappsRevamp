@@ -19,20 +19,22 @@ import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
 
-/**
+*
  * A login screen that offers login via email/password.
- */
+
+
 class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
-    /**
+*
      * Keep track of the login task to ensure we can cancel it if requested.
-     */
+
+
     private var mAuthTask: UserLoginTask? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login1)
         // Set up the login form.
-       /* password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
+ password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
             if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
                 attemptLogin()
                 return@OnEditorActionListener true
@@ -40,16 +42,18 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             false
         })
 
-        email_sign_in_button.setOnClickListener { attemptLogin() }*/
+        email_sign_in_button.setOnClickListener { attemptLogin() }
+
     }
 
 
 
-    /**
+*
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
-     */
+
+
     private fun attemptLogin() {
         if (mAuthTask != null) {
             return
@@ -107,9 +111,10 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         return password.length > 4
     }
 
-    /**
+*
      * Shows the progress UI and hides the login form.
-     */
+
+
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private fun showProgress(show: Boolean) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -191,10 +196,11 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         val IS_PRIMARY = 1
     }
 
-    /**
+*
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
-     */
+
+
     inner class UserLoginTask internal constructor(private val mEmail: String, private val mPassword: String) : AsyncTask<Void, Void, Boolean>() {
 
         override fun doInBackground(vararg params: Void): Boolean? {
@@ -237,15 +243,17 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
     companion object {
 
-        /**
+*
          * Id to identity READ_CONTACTS permission request.
-         */
+
+
         private val REQUEST_READ_CONTACTS = 0
 
-        /**
+*
          * A dummy authentication store containing known user names and passwords.
          * TODO: remove after connecting to a real authentication system.
-         */
+
+
         private val DUMMY_CREDENTIALS = arrayOf("foo@example.com:hello", "bar@example.com:world")
     }
 }

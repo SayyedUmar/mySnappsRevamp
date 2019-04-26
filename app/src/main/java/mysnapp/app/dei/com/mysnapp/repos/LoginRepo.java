@@ -22,12 +22,9 @@ import mysnapp.app.dei.com.mysnapp.data.local.AppDatabase;
 import mysnapp.app.dei.com.mysnapp.data.local.dao.ImageDao;
 import mysnapp.app.dei.com.mysnapp.data.local.dao.SubstoreDao;
 import mysnapp.app.dei.com.mysnapp.data.local.dao.UserDao;
-import mysnapp.app.dei.com.mysnapp.data.local.entity.ImageEntity;
-import mysnapp.app.dei.com.mysnapp.data.local.entity.SubstoreEntity;
+import mysnapp.app.dei.com.mysnapp.data.local.entity.Image;
+import mysnapp.app.dei.com.mysnapp.data.local.entity.Substore;
 import mysnapp.app.dei.com.mysnapp.model.Data;
-import mysnapp.app.dei.com.mysnapp.utils.RxUtils;
-import okhttp3.ResponseBody;
-import retrofit2.Response;
 
 public class LoginRepo<T, R> {
 
@@ -41,10 +38,14 @@ public class LoginRepo<T, R> {
     private DisposableObserver disposableObserver;
     private Disposable disposable;
     MutableLiveData<ResponseModel> loginResponse = new MutableLiveData<>();
+    MutableLiveData<Throwable> loginError = new MutableLiveData<>();
 
     public static LoginRepo getInstance() {
         if (instance == null) {
-            instance = new LoginRepo();
+            synchronized (LoginRepo.class) {
+                if (instance == null)
+                    instance = new LoginRepo();
+            }
         }
         return instance;
     }
@@ -68,7 +69,7 @@ public class LoginRepo<T, R> {
         }
     }
 
-    public Observable fetchUserData(String username, String pwd) {
+    public Observable performLogin(String username, String pwd) {
         return apiService.performLogin("application/json", new RequestModel(new UserLogin(username, pwd)));
     }
 
@@ -90,9 +91,9 @@ public class LoginRepo<T, R> {
                         if (responseModel.Data != null && responseModel.Data.User != null) {
                             executor.execute(() -> {
                                 userDao.insert(responseModel.Data.User);
-                                for (SubstoreEntity store: responseModel.Data.SubStoreDetails) {
+                                for (Substore store: responseModel.Data.SubStoreDetails) {
                                     substoreDao.insert(store);
-                                    for (ImageEntity image: store.ImageDetailList) {
+                                    for (Image image: store.ImageDetailList) {
                                         imageDao.insert(image);
                                     }
                                 }
@@ -101,8 +102,9 @@ public class LoginRepo<T, R> {
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onError(Throwable t) {
                         Log.e("onError","onError");
+                        loginError.postValue(t);
                     }
 
                     @Override
@@ -114,6 +116,9 @@ public class LoginRepo<T, R> {
 
     public LiveData<ResponseModel> getLoginReponse() {
         return loginResponse;
+    }
+    public LiveData<Throwable> getLoginError() {
+        return loginError;
     }
 
     public void unsubcribe () {

@@ -1,12 +1,14 @@
 package mysnapp.app.dei.com.mysnapp.common;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import mysnapp.app.dei.com.mysnapp.BuildConfig;
-import mysnapp.app.dei.com.mysnapp.common.remote.BooleanTypeAdapter;
 import mysnapp.app.dei.com.mysnapp.utils.Const;
+import mysnapp.app.dei.com.mysnapp.utils.JsonDateDeserializer;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -67,10 +69,12 @@ public class APIClient {
 //        GsonBuilder builder = new GsonBuilder();
 //        builder.registerTypeAdapter(Boolean.class, new BooleanTypeAdapter());
 
+        Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new JsonDateDeserializer()).create();
+
         return new Retrofit.Builder()
                 .client(okHttpBuilder.build()).baseUrl(url)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }
 

@@ -6,13 +6,16 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import mysnapp.app.dei.com.mysnapp.data.local.entity.ImageEntity;
+import mysnapp.app.dei.com.mysnapp.data.local.entity.Image;
 
 @Dao
 public interface ImageDao {
-    @Query("SELECT * FROM images")
-    LiveData<ImageEntity> getImages();
+    @Query("SELECT * FROM images_table")
+    LiveData<Image> getImages();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(ImageEntity user);
+    void insert(Image user);
+
+    @Query("DELETE FROM user")
+    void deleteAll();
 }

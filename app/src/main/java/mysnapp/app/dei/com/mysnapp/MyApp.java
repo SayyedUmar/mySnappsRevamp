@@ -5,9 +5,11 @@ import android.content.Context;
 
 import com.facebook.stetho.Stetho;
 
+import mysnapp.app.dei.com.mysnapp.data.local.AppDatabase;
+
 public class MyApp extends Application {
 
-    public static MyApp self;
+    private static MyApp self;
 
     public static Context getAppContext() {
         return self;
@@ -22,6 +24,8 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
         initializeComponent();
+        self = this;
+        AppDatabase.getAppDatabase(this);
         Stetho.initializeWithDefaults(this);
     }
 
