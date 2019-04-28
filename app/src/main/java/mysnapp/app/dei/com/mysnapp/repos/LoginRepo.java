@@ -14,10 +14,9 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import mysnapp.app.dei.com.mysnapp.MyApp;
-import mysnapp.app.dei.com.mysnapp.common.APIClient;
-import mysnapp.app.dei.com.mysnapp.common.ApiService;
-import mysnapp.app.dei.com.mysnapp.common.RequestModel;
-import mysnapp.app.dei.com.mysnapp.common.ResponseModel;
+import mysnapp.app.dei.com.mysnapp.data.remote.NetworkBoundResource;
+import mysnapp.app.dei.com.mysnapp.data.remote.RequestModel;
+import mysnapp.app.dei.com.mysnapp.data.remote.ResponseModel;
 import mysnapp.app.dei.com.mysnapp.data.local.AppDatabase;
 import mysnapp.app.dei.com.mysnapp.data.local.dao.ImageDao;
 import mysnapp.app.dei.com.mysnapp.data.local.dao.SubstoreDao;
@@ -29,7 +28,7 @@ import mysnapp.app.dei.com.mysnapp.model.Data;
 public class LoginRepo<T, R> {
 
     private static LoginRepo instance;
-    private ApiService apiService;
+    private NetworkBoundResource.ApiService apiService;
     SubstoreDao substoreDao;
     UserDao userDao;
     ImageDao imageDao;
@@ -52,7 +51,7 @@ public class LoginRepo<T, R> {
 
     LoginRepo () {
         executor = Executors.newSingleThreadExecutor();
-        apiService = APIClient.getApiService();
+        apiService = NetworkBoundResource.APIClient.getApiService();
         this.userDao = AppDatabase.getAppDatabase(MyApp.getAppContext()).userDao();
         this.imageDao = AppDatabase.getAppDatabase(MyApp.getAppContext()).imageDao();
         this.substoreDao = AppDatabase.getAppDatabase(MyApp.getAppContext()).substoreDao();

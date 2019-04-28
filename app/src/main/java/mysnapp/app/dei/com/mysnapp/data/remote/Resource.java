@@ -1,11 +1,11 @@
-package mysnapp.app.dei.com.mysnapp.common;
+package mysnapp.app.dei.com.mysnapp.data.remote;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import static mysnapp.app.dei.com.mysnapp.common.Status.ERROR;
-import static mysnapp.app.dei.com.mysnapp.common.Status.LOADING;
-import static mysnapp.app.dei.com.mysnapp.common.Status.SUCCESS;
+import static mysnapp.app.dei.com.mysnapp.data.remote.Status.ERROR;
+import static mysnapp.app.dei.com.mysnapp.data.remote.Status.LOADING;
+import static mysnapp.app.dei.com.mysnapp.data.remote.Status.SUCCESS;
 
 
 /**

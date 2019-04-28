@@ -1,41 +1,20 @@
 package mysnapp.app.dei.com.mysnapp.login;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableBoolean;
-import android.databinding.ObservableChar;
 import android.support.annotation.VisibleForTesting;
-import android.text.BoringLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
-import mysnapp.app.dei.com.mysnapp.common.APIClient;
-import mysnapp.app.dei.com.mysnapp.common.ResponseModel;
+import mysnapp.app.dei.com.mysnapp.data.remote.ResponseModel;
 import mysnapp.app.dei.com.mysnapp.login.models.LoginForm;
 import mysnapp.app.dei.com.mysnapp.login.models.LoginModel;
 import mysnapp.app.dei.com.mysnapp.repos.LoginRepo;
 import mysnapp.app.dei.com.mysnapp.utils.Const;
-import mysnapp.app.dei.com.mysnapp.utils.Logs;
 import mysnapp.app.dei.com.mysnapp.utils.MyPreferences;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class LoginViewModel extends ViewModel {
 
