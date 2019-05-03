@@ -9,6 +9,12 @@ import android.support.annotation.VisibleForTesting;
 import android.view.View;
 import android.widget.EditText;
 
+import mysnapp.app.dei.com.mysnapp.dagger.BattleComponent;
+import mysnapp.app.dei.com.mysnapp.dagger.DaggerBattleComponent;
+import mysnapp.app.dei.com.mysnapp.dagger.step1.War;
+import mysnapp.app.dei.com.mysnapp.dagger.step2.BraavosModule;
+import mysnapp.app.dei.com.mysnapp.dagger.step2.Cash;
+import mysnapp.app.dei.com.mysnapp.dagger.step2.Soldiers;
 import mysnapp.app.dei.com.mysnapp.data.remote.ResponseModel;
 import mysnapp.app.dei.com.mysnapp.login.models.LoginForm;
 import mysnapp.app.dei.com.mysnapp.login.models.LoginModel;
@@ -27,6 +33,13 @@ public class LoginViewModel extends ViewModel {
 
     @VisibleForTesting
     void init(Context context) {
+
+        BattleComponent battleComponent = DaggerBattleComponent.builder().braavosModule(new BraavosModule()).build();
+        War war = battleComponent.getWar();
+        Cash cash = battleComponent.getCash();
+        Soldiers soldiers = battleComponent.getSoldiers();
+
+
         login = new LoginForm();
         LoginModel model = login.getModel();
         model.rememberMe = MyPreferences.getBoolValue(context, Const.REMEMBER_ME);
