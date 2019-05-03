@@ -1,4 +1,4 @@
-package mysnapp.app.dei.com.mysnapp.common.remote;
+package mysnapp.app.dei.com.mysnapp.data.remote;
 
 
 import java.lang.reflect.Type;

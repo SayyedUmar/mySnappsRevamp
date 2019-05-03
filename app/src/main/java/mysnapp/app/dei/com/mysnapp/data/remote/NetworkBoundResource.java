@@ -1,4 +1,4 @@
-package mysnapp.app.dei.com.mysnapp.common;
+package mysnapp.app.dei.com.mysnapp.data.remote;
 
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.LiveData;

@@ -1,4 +1,4 @@
-package mysnapp.app.dei.com.mysnapp.common;
+package mysnapp.app.dei.com.mysnapp.data.remote;
 
 /**
  * Status of a resource that is provided to the UI.
