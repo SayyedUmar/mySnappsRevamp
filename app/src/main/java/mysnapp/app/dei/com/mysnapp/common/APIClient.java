@@ -1,8 +1,13 @@
 package mysnapp.app.dei.com.mysnapp.common;
 
+import android.support.annotation.Nullable;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -10,7 +15,9 @@ import mysnapp.app.dei.com.mysnapp.BuildConfig;
 import mysnapp.app.dei.com.mysnapp.utils.Const;
 import mysnapp.app.dei.com.mysnapp.utils.JsonDateDeserializer;
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -75,6 +82,7 @@ public class APIClient {
                 .client(okHttpBuilder.build()).baseUrl(url)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(NullOnEmptyConverterFactory.create())
                 .build();
     }
 
@@ -85,6 +93,29 @@ public class APIClient {
     public static ApiService getApiService() {
         return getApiService(Const.ROOT_URL);
     }
+
+    static class NullOnEmptyConverterFactory extends Converter.Factory {
+        private NullOnEmptyConverterFactory() {
+        }
+
+        public static Converter.Factory create() {
+            return new NullOnEmptyConverterFactory();
+        }
+
+        @Override
+        public @Nullable
+        Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
+            final Converter<ResponseBody, ?> delegate = retrofit.nextResponseBodyConverter(this, type, annotations);
+            return new Converter<ResponseBody, Object>() {
+                @Override
+                public Object convert(ResponseBody body) throws IOException {
+                    if (body.contentLength() == 0) return null;
+                    return delegate.convert(body);
+                }
+            };
+        }
+    }
+
 }
 
 
