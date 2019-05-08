@@ -5,7 +5,11 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="redTextColor">#CC0000</color>
+    <color name="redTextColor1">#C40000</color>
     <color name="white">#fff</color>
     <color name="grayish_white">#FDFDFD</color>
     <color name="ligh_gray">#F1F1F1</color>
+    <color name="black">#000</color>
+    <color name="light_gray">#e6e6e6</color>
+    <color name="darkgray">#666</color>
 </resources>

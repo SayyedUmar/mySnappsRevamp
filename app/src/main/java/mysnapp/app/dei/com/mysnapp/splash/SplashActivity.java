@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import mysnapp.app.dei.com.mysnapp.R;
+import mysnapp.app.dei.com.mysnapp.home.ClaimPhotosctivity;
 import mysnapp.app.dei.com.mysnapp.login.LoginActivityNew;
 
 public class SplashActivity extends AppCompatActivity {
@@ -21,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void navigateToLogin() {
-        new Handler().postDelayed(() -> startActivity(new Intent(SplashActivity.this, LoginActivityNew.class)), 3000);
+        new Handler().postDelayed(() -> startActivity(new Intent(SplashActivity.this, ClaimPhotosctivity.class)), 3000);
     }
 
 
