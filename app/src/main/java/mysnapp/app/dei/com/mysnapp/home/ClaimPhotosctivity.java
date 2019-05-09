@@ -11,9 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import mysnapp.app.dei.com.mysnapp.R;
 import mysnapp.app.dei.com.mysnapp.login.LoginViewModel;
 
@@ -21,8 +22,8 @@ public class ClaimPhotosctivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private LoginViewModel viewModel;
-    private ImageButton btnCloseDrawer;
-    private DrawerLayout drawer;
+    @BindView(R.id.btnCloseDrawer) ImageButton btnCloseDrawer;
+    @BindView(R.id.drawer_layout) DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
 
     @Override
@@ -30,11 +31,11 @@ public class ClaimPhotosctivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_claim_photos);
+        ButterKnife.bind(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        drawer = findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -42,12 +43,11 @@ public class ClaimPhotosctivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        findViewByIds();
+        setEventListeners();
 
     }
 
-    private void findViewByIds() {
-        btnCloseDrawer = findViewById(R.id.btnCloseDrawer);
+    private void setEventListeners() {
         btnCloseDrawer.setOnClickListener(v -> {
             if (drawer.isDrawerOpen(GravityCompat.START)) {
                 drawer.closeDrawer(GravityCompat.START);

@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 //apply plugin: 'kotlin-kapt'
 //apply plugin: 'kotlin-android'
 //apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.jakewharton.butterknife'
+
 
 android {
     compileSdkVersion 28
@@ -141,8 +141,8 @@ dependencies {
     implementation 'com.mikhaellopez:circularimageview:3.2.0'
 
     //butterknife
-    implementation 'com.jakewharton:butterknife:10.1.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
