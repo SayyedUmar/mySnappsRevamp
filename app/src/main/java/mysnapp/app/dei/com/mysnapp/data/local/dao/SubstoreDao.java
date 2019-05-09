@@ -18,6 +18,6 @@ public interface SubstoreDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Substore store);
 
-    @Query("DELETE FROM user")
+    @Query("DELETE FROM substores")
     void deleteAll();
 }

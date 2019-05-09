@@ -21,4 +21,7 @@ public interface ApiService<T> {
     Observable<Response<ResponseBody>> performLogin1(@Header("Content-Type") String type,
                                                      @Body RequestModel model);
 
+    @POST("ClaimQRCode")
+    Observable<ResponseModel<Data>> claimQRCode(@Header("Content-Type") String type,
+                                   @Body RequestModel model);
 }

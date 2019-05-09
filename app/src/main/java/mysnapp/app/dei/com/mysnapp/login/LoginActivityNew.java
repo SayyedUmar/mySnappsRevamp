@@ -5,16 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
-import android.widget.Toast;
-
-import org.json.JSONObject;
 
 import mysnapp.app.dei.com.mysnapp.R;
 import mysnapp.app.dei.com.mysnapp.databinding.ActivityLogin1Binding;
-import mysnapp.app.dei.com.mysnapp.home.ClaimPhotosctivity;
+import mysnapp.app.dei.com.mysnapp.home.ClaimPhotosActivity;
+import mysnapp.app.dei.com.mysnapp.utils.AppConst;
+import mysnapp.app.dei.com.mysnapp.utils.CustomAnimation;
 import mysnapp.app.dei.com.mysnapp.utils.Logs;
+import mysnapp.app.dei.com.mysnapp.utils.MyPreferences;
 import mysnapp.app.dei.com.mysnapp.view.base.BaseActivity;
-import retrofit2.HttpException;
 
 public class LoginActivityNew extends BaseActivity<ActivityLogin1Binding> {
 
@@ -36,8 +35,15 @@ public class LoginActivityNew extends BaseActivity<ActivityLogin1Binding> {
         dataBinding.setModel(viewModel);
 
         viewModel.getLoginResponse().observe(this, res -> {
-            Logs.shortToast(this, "Login Successfully.");
-            startActivity(new Intent(this, ClaimPhotosctivity.class));
+            if (res.ResponseCode == "200" || res.ResponseCode == "000") {
+                Logs.shortToast(this, "Login Successfully.");
+                MyPreferences.setBoolValue(this, AppConst.LOGIN_STATUS, true);
+                startActivity(new Intent(this, ClaimPhotosActivity.class));
+                CustomAnimation.slideDown(this);
+            } else {
+                Logs.shortToast(this, res.ResponseMessage);
+            }
+
         });
 
         viewModel.getLoginError().observe(this, err -> {

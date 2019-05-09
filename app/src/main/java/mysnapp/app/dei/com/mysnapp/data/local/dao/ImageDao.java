@@ -16,6 +16,6 @@ public interface ImageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Image user);
 
-    @Query("DELETE FROM user")
+    @Query("DELETE FROM images_table")
     void deleteAll();
 }

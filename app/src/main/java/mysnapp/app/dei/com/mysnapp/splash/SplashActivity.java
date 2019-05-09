@@ -7,8 +7,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import mysnapp.app.dei.com.mysnapp.R;
-import mysnapp.app.dei.com.mysnapp.home.ClaimPhotosctivity;
+import mysnapp.app.dei.com.mysnapp.home.ClaimPhotosActivity;
 import mysnapp.app.dei.com.mysnapp.login.LoginActivityNew;
+import mysnapp.app.dei.com.mysnapp.utils.AppConst;
+import mysnapp.app.dei.com.mysnapp.utils.MyPreferences;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -18,11 +20,20 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        navigateToLogin();
+        MyPreferences.setBoolValue(this, AppConst.LOGIN_STATUS, false);
+        if (MyPreferences.getBoolValue(this, AppConst.LOGIN_STATUS)) {
+            navigateToHome();
+        } else {
+            navigateToLogin();
+        }
     }
 
     private void navigateToLogin() {
-        new Handler().postDelayed(() -> startActivity(new Intent(SplashActivity.this, ClaimPhotosctivity.class)), 3000);
+        new Handler().postDelayed(() -> startActivity(new Intent(SplashActivity.this, LoginActivityNew.class)), 3000);
+    }
+
+    private void navigateToHome() {
+        new Handler().postDelayed(() -> startActivity(new Intent(SplashActivity.this, ClaimPhotosActivity.class)), 3000);
     }
 
 

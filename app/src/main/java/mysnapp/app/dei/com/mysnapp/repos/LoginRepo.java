@@ -16,15 +16,14 @@ import io.reactivex.schedulers.Schedulers;
 import mysnapp.app.dei.com.mysnapp.MyApp;
 import mysnapp.app.dei.com.mysnapp.common.APIClient;
 import mysnapp.app.dei.com.mysnapp.common.ApiService;
-import mysnapp.app.dei.com.mysnapp.data.remote.NetworkBoundResource;
-import mysnapp.app.dei.com.mysnapp.data.remote.RequestModel;
-import mysnapp.app.dei.com.mysnapp.data.remote.ResponseModel;
 import mysnapp.app.dei.com.mysnapp.data.local.AppDatabase;
 import mysnapp.app.dei.com.mysnapp.data.local.dao.ImageDao;
 import mysnapp.app.dei.com.mysnapp.data.local.dao.SubstoreDao;
 import mysnapp.app.dei.com.mysnapp.data.local.dao.UserDao;
 import mysnapp.app.dei.com.mysnapp.data.local.entity.Image;
 import mysnapp.app.dei.com.mysnapp.data.local.entity.Substore;
+import mysnapp.app.dei.com.mysnapp.data.remote.RequestModel;
+import mysnapp.app.dei.com.mysnapp.data.remote.ResponseModel;
 import mysnapp.app.dei.com.mysnapp.model.Data;
 
 public class LoginRepo<T, R> {
@@ -74,6 +73,7 @@ public class LoginRepo<T, R> {
         return apiService.performLogin("application/json", new RequestModel(new UserLogin(username, pwd)));
     }
 
+
     public void loginUser(String username, String pwd) {
 
         apiService.performLogin("application/json", new RequestModel(new UserLogin(username, pwd)))
@@ -91,6 +91,8 @@ public class LoginRepo<T, R> {
                         loginResponse.postValue(responseModel);
                         if (responseModel.Data != null && responseModel.Data.User != null) {
                             executor.execute(() -> {
+                                substoreDao.deleteAll();
+                                imageDao.deleteAll();
                                 userDao.insert(responseModel.Data.User);
                                 for (Substore store: responseModel.Data.SubStoreDetails) {
                                     substoreDao.insert(store);
@@ -127,6 +129,7 @@ public class LoginRepo<T, R> {
             disposableObserver.dispose();
         }
     }
+
 
 
    /* public Observable<Response<ResponseBody>> fetchUserData1(String username, String pwd) {
