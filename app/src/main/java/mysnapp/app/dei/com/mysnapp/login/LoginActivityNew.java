@@ -35,12 +35,13 @@ public class LoginActivityNew extends BaseActivity<ActivityLogin1Binding> {
         dataBinding.setModel(viewModel);
 
         viewModel.getLoginResponse().observe(this, res -> {
-            if (res.ResponseCode == "200" || res.ResponseCode == "000") {
+            if (res.ResponseCode.equals("200") || res.ResponseCode.equals("000")) {
                 Logs.shortToast(this, "Login Successfully.");
                 MyPreferences.setBoolValue(this, AppConst.LOGIN_STATUS, true);
                 startActivity(new Intent(this, ClaimPhotosActivity.class));
                 CustomAnimation.slideDown(this);
             } else {
+                viewModel.showLoader.set(false);
                 Logs.shortToast(this, res.ResponseMessage);
             }
 

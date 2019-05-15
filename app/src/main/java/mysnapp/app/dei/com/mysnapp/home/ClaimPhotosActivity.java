@@ -1,7 +1,9 @@
 package mysnapp.app.dei.com.mysnapp.home;
 
+import android.app.AlertDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.databinding.Bindable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,14 +14,23 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.runtime.Permission;
+
+import java.net.URI;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dmax.dialog.SpotsDialog;
 import mysnapp.app.dei.com.mysnapp.R;
 import mysnapp.app.dei.com.mysnapp.databinding.ActivityLogin1Binding;
+import mysnapp.app.dei.com.mysnapp.scanQRCode.ScanQRCodeActivity;
 import mysnapp.app.dei.com.mysnapp.utils.Logs;
 import mysnapp.app.dei.com.mysnapp.view.base.BaseActivity;
 
@@ -37,9 +48,13 @@ public class ClaimPhotosActivity  extends BaseActivity<ActivityLogin1Binding>
     Button btnClaimedPhotos;
     @BindView(R.id.etClaimCode)
     EditText etClaimCode;
+    @BindView(R.id.btnScan)
+    Button btnScan;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     private ClaimPhotosViewModel viewModel;
-    private ActionBarDrawerToggle toggle;
+    private AlertDialog progress;
 
     @Override
     protected int getLayoutRes() {
@@ -54,10 +69,10 @@ public class ClaimPhotosActivity  extends BaseActivity<ActivityLogin1Binding>
         ButterKnife.bind(this);
         setViewModel();
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        progress = new SpotsDialog(this, R.style.DilaogStyle);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -65,7 +80,6 @@ public class ClaimPhotosActivity  extends BaseActivity<ActivityLogin1Binding>
         navigationView.setNavigationItemSelectedListener(this);
 
         setEventListeners();
-
     }
 
     private void setViewModel() {
@@ -80,11 +94,17 @@ public class ClaimPhotosActivity  extends BaseActivity<ActivityLogin1Binding>
         });
 
         btnClaimPhoto.setOnClickListener(v -> {
+            progress.show();
             claimPhotoAction();
         });
 
-        viewModel.getClaimCodeResponse().observe(this, res -> {
+        btnScan.setOnClickListener(v -> {
+            //startActivity(new Intent(this, ScanQRCodeActivity.class));
+            openQrCodeScanner();
+        });
 
+        viewModel.getClaimCodeResponse().observe(this, res -> {
+            progress.dismiss();
             if (res.ResponseCode == "200" || res.ResponseCode == "000") {
                 Logs.shortToast(this, "QR Code claimed successfully.");
             } else {
@@ -93,8 +113,29 @@ public class ClaimPhotosActivity  extends BaseActivity<ActivityLogin1Binding>
         });
 
         viewModel.getClaimCodeError().observe(this, err -> {
+            progress.dismiss();
             Logs.shortToast(this, err.getMessage());
         });
+    }
+
+    private void openQrCodeScanner() {
+
+        AndPermission.with(this)
+                .runtime()
+                .permission(Permission.Group.CAMERA)
+                .onGranted(permissions -> openCameraScan())
+                .onDenied(permissions -> Logs.shortToast(getApplicationContext(), "Camera access permission denied!"))
+                .start();
+
+    }
+
+    private void openCameraScan () {
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+        integrator.setPrompt("Scan your QR card.");
+        integrator.setCameraId(0);
+        integrator.setBeepEnabled(true);
+        integrator.initiateScan();
     }
 
     private void claimPhotoAction() {
@@ -147,4 +188,41 @@ public class ClaimPhotosActivity  extends BaseActivity<ActivityLogin1Binding>
         super.onDestroy();
         viewModel.onDestroy();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == IntentIntegrator.REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                String result = data.getStringExtra("SCAN_RESULT");
+                String format = data.getStringExtra("SCAN_RESULT_FORMAT");
+
+                if (format.equalsIgnoreCase("QR_CODE")) {
+
+                    if (URLUtil.isValidUrl(result)) {
+                        try {
+                            URI uri = new URI(result);
+                            String query = uri.getQuery();
+                            int index = query.indexOf("=");
+                            String qrCode = "";
+                            if (index != -1)
+                                qrCode = query.substring(query.indexOf("=")+1);
+                            if (qrCode.trim().isEmpty() || qrCode.length() < 6) {
+                                startActivity(new Intent(this, WebviewActivity.class).putExtra("Url", result));
+                            } else {
+                                etClaimCode.setText(qrCode);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            startActivity(new Intent(this, WebviewActivity.class).putExtra("Url", result));
+                        }
+
+                    } else {etClaimCode.setText(result);}
+                } else {etClaimCode.setText(result); }
+
+            } else if (resultCode == RESULT_CANCELED && data != null) {etClaimCode.setText("");}
+        }
+    }
+
 }

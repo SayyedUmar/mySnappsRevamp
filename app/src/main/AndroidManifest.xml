@@ -3,9 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="mysnapp.app.dei.com.mysnapp">
 
+    <!--APi calls-->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!--QRcode scan-->
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".MyApp"
@@ -45,6 +49,14 @@
 
         <activity android:name=".login.LoginActivityNew"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+
+        <activity android:name=".scanQRCode.ScanQRCodeActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+            android:name=".home.WebviewActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -9,7 +9,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "mysnapp.app.dei.com.mysnapp"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -143,6 +143,20 @@ dependencies {
     //butterknife
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    //qr code scanning lib
+    //implementation 'com.budiyev.android:code-scanner:2.1.0'
+    implementation 'com.journeyapps:zxing-android-embedded:3.6.0@aar'
+    implementation 'com.google.zxing:core:3.3.3'
+
+    // spots loader
+    implementation 'com.github.d-max:spots-dialog:0.5@aar' //1.1@aar
+
+    //runtime permission
+    implementation 'com.yanzhenjie.permission:support:2.0.1'
+
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
