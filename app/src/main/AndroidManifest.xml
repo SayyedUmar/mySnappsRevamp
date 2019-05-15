@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        android:allowBackup="false"
+        android:allowBackup="true"
         >
 
         <!--<activity
@@ -51,11 +51,16 @@
             android:theme="@style/AppTheme.NoActionBar"/>
 
 
-        <activity android:name=".scanQRCode.ScanQRCodeActivity"
+        <activity android:name=".gallary.GalleryActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".home.WebviewActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".gallary.TempActivity"
+            android:theme="@style/MyActionBarTheme"
             android:screenOrientation="portrait" />
 
         <meta-data

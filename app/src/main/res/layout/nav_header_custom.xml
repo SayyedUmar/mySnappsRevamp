@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bg_menu_new">
@@ -48,7 +47,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
 
-                    android:src="@drawable/ic_home"
+                    android:src="@drawable/ic_home2"
                     android:tint="@color/redTextColor1" />
 
                 <TextView
@@ -81,7 +80,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
 
-                    android:src="@drawable/ic_home"
+                    android:src="@drawable/ic_claim_card"
                     android:tint="@color/redTextColor1" />
 
                 <TextView
@@ -90,7 +89,7 @@
                     android:layout_marginLeft="10dp"
 
                     android:fontFamily="@font/mont_regular"
-                    android:text="Claim"
+                    android:text="Claim More Photos"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -114,7 +113,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
 
-                    android:src="@drawable/ic_home"
+                    android:src="@drawable/ic_ar"
                     android:tint="@color/redTextColor1" />
 
                 <TextView
@@ -123,11 +122,13 @@
                     android:layout_marginLeft="10dp"
 
                     android:fontFamily="@font/mont_regular"
-                    android:text="Photo Magic"
+                    android:text="Augmented Reality"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
             </LinearLayout>
+
+
 
             <View
                 android:layout_width="match_parent"
@@ -147,7 +148,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
 
-                    android:src="@drawable/ic_home"
+                    android:src="@drawable/ic_photomagic"
                     android:tint="@color/redTextColor1" />
 
                 <TextView
@@ -156,11 +157,12 @@
                     android:layout_marginLeft="10dp"
 
                     android:fontFamily="@font/mont_regular"
-                    android:text="Products"
+                    android:text="Photo Magic"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
             </LinearLayout>
+
 
             <View
                 android:layout_width="match_parent"
@@ -180,7 +182,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
 
-                    android:src="@drawable/ic_home"
+                    android:src="@drawable/ic_products"
                     android:tint="@color/redTextColor1" />
 
                 <TextView
@@ -189,11 +191,12 @@
                     android:layout_marginLeft="10dp"
 
                     android:fontFamily="@font/mont_regular"
-                    android:text="Cart"
+                    android:text="Products"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
             </LinearLayout>
+
 
             <View
                 android:layout_width="match_parent"
@@ -213,7 +216,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
 
-                    android:src="@drawable/ic_home"
+                    android:src="@drawable/ic_cart"
                     android:tint="@color/redTextColor1" />
 
                 <TextView
@@ -222,7 +225,7 @@
                     android:layout_marginLeft="10dp"
 
                     android:fontFamily="@font/mont_regular"
-                    android:text="Lost Photos"
+                    android:text="Cart"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -246,7 +249,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
 
-                    android:src="@drawable/ic_home"
+                    android:src="@drawable/ic_lost_photos"
                     android:tint="@color/redTextColor1" />
 
                 <TextView
@@ -255,7 +258,7 @@
                     android:layout_marginLeft="10dp"
 
                     android:fontFamily="@font/mont_regular"
-                    android:text="About Us"
+                    android:text="Lost Photos"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -279,7 +282,7 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
 
-                    android:src="@drawable/ic_home"
+                    android:src="@drawable/ic_info"
                     android:tint="@color/redTextColor1" />
 
                 <TextView
@@ -288,7 +291,7 @@
                     android:layout_marginLeft="10dp"
 
                     android:fontFamily="@font/mont_regular"
-                    android:text="Notifications"
+                    android:text="About Us"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -311,8 +314,7 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-
-                    android:src="@drawable/ic_home"
+                    android:src="@drawable/ic_settings"
                     android:tint="@color/redTextColor1" />
 
                 <TextView
@@ -333,6 +335,32 @@
                 android:layout_marginRight="185dp"
                 android:background="#D5D3D3" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+
+                    android:src="@drawable/ic_notification"
+                    android:tint="@color/redTextColor1" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+
+                    android:fontFamily="@font/mont_regular"
+                    android:text="Notifications"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

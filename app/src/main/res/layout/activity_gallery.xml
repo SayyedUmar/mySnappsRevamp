@@ -1,6 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="mysnapp.app.dei.com.mysnapp.gallary.GalleryActivityVM" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        >
+
+        <include layout="@layout/custom_toolbar"
+            android:id="@+id/toolbar"
+            />
+
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_below="@+id/toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Gallery"
+            android:textSize="16sp"
+            android:fontFamily="@font/mont_medium"
+            android:textColor="@color/redTextColor"
+            android:drawablePadding="10dp"
+            android:layout_centerHorizontal="true"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            />
+
+        <android.support.design.card.MaterialCardView
+            android:id="@+id/mat1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv1"
+            android:layout_alignParentRight="true"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="2dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/ligh_gray"
+                android:text="Select Venue"
+                android:drawableRight="@drawable/ic_id_down_arrow"
+                android:drawablePadding="10dp"
+                android:layout_gravity="center"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                />
+
+
+
+        </android.support.design.card.MaterialCardView>
+
+        <RelativeLayout
+            android:id="@+id/rellay1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mat1"
+            android:layout_marginTop="8dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Imagica"
+                android:fontFamily="@font/mont_medium"
+                android:background="@drawable/bg_rect_sharp_red_corner"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Expired on 17th June"
+                android:textSize="12sp"
+                android:textColor="@color/redTextColor"
+                android:fontFamily="@font/mont_light"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+
+        <mysnapp.app.dei.com.mysnapp.thirdparty.FitGridView
+            android:id="@+id/gridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rellay1"
+            android:layout_above="@+id/linlay1"
+            android:listSelector="@android:color/transparent"
+            app:column="3"
+            app:row="4"/>
+
+
+        <LinearLayout
+            android:id="@+id/linlay1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            >
+            
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@color/redTextColor"
+                android:textColor="@color/white"
+                android:text="Packages"
+                android:fontFamily="@font/mont_medium"
+                />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@color/redTextColor"
+                android:textColor="@color/white"
+                android:text="Packages"
+                android:fontFamily="@font/mont_medium"
+                android:layout_marginLeft="2dp"
+                />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@color/redTextColor"
+                android:textColor="@color/white"
+                android:text="Packages"
+                android:fontFamily="@font/mont_medium"
+                android:layout_marginLeft="2dp"
+                />
+            
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>
+<!--
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>-->

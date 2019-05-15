@@ -20,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        //MyPreferences.setBoolValue(this, AppConst.LOGIN_STATUS, false);
+        // MyPreferences.setBoolValue(this, AppConst.LOGIN_STATUS, false);
         if (MyPreferences.getBoolValue(this, AppConst.LOGIN_STATUS)) {
             navigateToHome();
         } else {

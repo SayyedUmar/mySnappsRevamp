@@ -19,7 +19,7 @@ public class Image {
     @PrimaryKey(autoGenerate = true)
     private long id;
 
-    long substoreID;
+    String substoreID;
 
     String ImageId;
     String ImageLocationID;
@@ -43,11 +43,11 @@ public class Image {
         this.id = id;
     }
 
-    public long getSubstoreID() {
+    public String getSubstoreID() {
         return substoreID;
     }
 
-    public void setSubstoreID(long substoreID) {
+    public void setSubstoreID(String substoreID) {
         this.substoreID = substoreID;
     }
 

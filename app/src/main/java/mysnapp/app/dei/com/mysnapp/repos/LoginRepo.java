@@ -97,6 +97,7 @@ public class LoginRepo<T, R> {
                                 for (Substore store: responseModel.Data.SubStoreDetails) {
                                     substoreDao.insert(store);
                                     for (Image image: store.ImageDetailList) {
+                                        image.setSubstoreID(store.getSubStoreId());
                                         imageDao.insert(image);
                                     }
                                 }

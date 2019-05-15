@@ -9,12 +9,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public abstract class BaseObservableActivity<A extends AppCompatActivity>
+public abstract class BaseActivityViewModel<A extends AppCompatActivity>
         extends BaseObservable {
 
     protected A activity;
 
-    public BaseObservableActivity(A activity) {
+    public BaseActivityViewModel(A activity) {
         this.activity = activity;
     }
 

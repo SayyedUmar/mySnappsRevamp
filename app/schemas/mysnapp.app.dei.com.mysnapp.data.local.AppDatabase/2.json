@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "0f18f8a4fa121f6d93ae1711d8ebb4d0",
+    "identityHash": "91698c7663630af98da13824c535f432",
     "entities": [
       {
         "tableName": "User",
@@ -148,7 +148,7 @@
       },
       {
         "tableName": "images_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `substoreID` INTEGER NOT NULL, `ImageId` TEXT, `ImageLocationID` TEXT, `ImageName` TEXT, `ImageUrl` TEXT, `ImageThumbnailUrl` TEXT, `WatermarkImagePath` TEXT, `VideoWatermarkImagePath` TEXT, `MediaType` INTEGER NOT NULL, `IsPaidImage` INTEGER NOT NULL, `IsPanoramic` INTEGER NOT NULL, `IsStockShot` INTEGER NOT NULL, `CaptureDate` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `substoreID` TEXT, `ImageId` TEXT, `ImageLocationID` TEXT, `ImageName` TEXT, `ImageUrl` TEXT, `ImageThumbnailUrl` TEXT, `WatermarkImagePath` TEXT, `VideoWatermarkImagePath` TEXT, `MediaType` INTEGER NOT NULL, `IsPaidImage` INTEGER NOT NULL, `IsPanoramic` INTEGER NOT NULL, `IsStockShot` INTEGER NOT NULL, `CaptureDate` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -159,8 +159,8 @@
           {
             "fieldPath": "substoreID",
             "columnName": "substoreID",
-            "affinity": "INTEGER",
-            "notNull": true
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "ImageId",
@@ -247,7 +247,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"0f18f8a4fa121f6d93ae1711d8ebb4d0\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"91698c7663630af98da13824c535f432\")"
     ]
   }
 }

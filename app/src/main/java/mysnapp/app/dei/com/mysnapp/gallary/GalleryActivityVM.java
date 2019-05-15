@@ -1,12 +1,18 @@
 package mysnapp.app.dei.com.mysnapp.gallary;
 
-import com.stfalcon.androidmvvmhelper.mvvm.activities.ActivityViewModel;
+
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.ViewModel;
+
+import java.util.List;
+
+import mysnapp.app.dei.com.mysnapp.data.local.entity.Image;
+import mysnapp.app.dei.com.mysnapp.repos.HomeRepo;
+
+public class GalleryActivityVM extends ViewModel {
 
 
-public class GalleryActivityVM extends ActivityViewModel<GalleryActivity> {
-
-    public GalleryActivityVM(GalleryActivity activity) {
-        super(activity);
+    public LiveData<List<Image>> getAllImages() {
+        return HomeRepo.getInstance().getAllImages();
     }
-
 }

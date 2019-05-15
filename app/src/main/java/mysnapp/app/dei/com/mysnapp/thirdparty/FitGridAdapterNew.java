@@ -10,34 +10,41 @@ import android.widget.BaseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class FitGridAdapter<T> extends BaseAdapter {
+public abstract class FitGridAdapterNew<T> extends BaseAdapter {
 
     private Context context;
-    private int columnWidth, columnHeight, row, column, layoutID;
+    private int columnWidth, columnHeight, row, column, layoutID, size = 0;;
     private List<T> list = new ArrayList();
 
-    public FitGridAdapter(Context context) {
+    public FitGridAdapterNew(Context context) {
         this.context = context;
     }
 
-    public FitGridAdapter(Context context, int layoutID) {
+    public FitGridAdapterNew(Context context, int layoutID) {
         this.context = context;
         this.layoutID = layoutID;
     }
 
-    public FitGridAdapter(Context context, int layoutID, List<T> list) {
+    public FitGridAdapterNew(Context context, int layoutID, List<T> list) {
         this.context = context;
         this.layoutID = layoutID;
         this.list = list;
 //        size = list.size();
     }
 
-    public FitGridAdapter(Context context, int layoutID, int row, int column) {
+    public FitGridAdapterNew(Context context, int layoutID, int size) {
+        this.context = context;
+        this.layoutID = layoutID;
+
+        this.size = size;
+    }
+
+    public FitGridAdapterNew(Context context, int layoutID, int row, int column) {
         this.context = context;
         this.layoutID = layoutID;
         this.row = row;
         this.column = column;
-        //size = row * column;
+        size = row * column;
     }
 
     @Override
@@ -61,7 +68,7 @@ public abstract class FitGridAdapter<T> extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size() == 0 ? column * row : list.size();
+        return size == 0 ? column * row : size;
     }
 
     @Override

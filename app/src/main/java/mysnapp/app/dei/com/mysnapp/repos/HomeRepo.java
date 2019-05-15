@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -130,4 +131,9 @@ public class HomeRepo {
             disposable.clear();
         }
     }
+
+    public LiveData<List<Image>> getAllImages() {
+        return imageDao.getImages();
+    }
+
 }

@@ -14,10 +14,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.yanzhenjie.permission.AndPermission;
@@ -30,7 +32,7 @@ import butterknife.ButterKnife;
 import dmax.dialog.SpotsDialog;
 import mysnapp.app.dei.com.mysnapp.R;
 import mysnapp.app.dei.com.mysnapp.databinding.ActivityLogin1Binding;
-import mysnapp.app.dei.com.mysnapp.scanQRCode.ScanQRCodeActivity;
+import mysnapp.app.dei.com.mysnapp.gallary.GalleryActivity;
 import mysnapp.app.dei.com.mysnapp.utils.Logs;
 import mysnapp.app.dei.com.mysnapp.view.base.BaseActivity;
 
@@ -52,6 +54,8 @@ public class ClaimPhotosActivity  extends BaseActivity<ActivityLogin1Binding>
     Button btnScan;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.img_back)
+    ImageView img_back;
 
     private ClaimPhotosViewModel viewModel;
     private AlertDialog progress;
@@ -70,6 +74,7 @@ public class ClaimPhotosActivity  extends BaseActivity<ActivityLogin1Binding>
         setViewModel();
 
         setSupportActionBar(toolbar);
+        img_back.setVisibility(View.GONE);
 
         progress = new SpotsDialog(this, R.style.DilaogStyle);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -115,6 +120,10 @@ public class ClaimPhotosActivity  extends BaseActivity<ActivityLogin1Binding>
         viewModel.getClaimCodeError().observe(this, err -> {
             progress.dismiss();
             Logs.shortToast(this, err.getMessage());
+        });
+
+        btnClaimedPhotos.setOnClickListener(v -> {
+            startActivity(new Intent(this, GalleryActivity.class));
         });
     }
 
