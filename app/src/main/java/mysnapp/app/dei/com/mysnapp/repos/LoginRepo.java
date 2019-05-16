@@ -39,6 +39,7 @@ public class LoginRepo<T, R> {
     private Disposable disposable;
     MutableLiveData<ResponseModel> loginResponse = new MutableLiveData<>();
     MutableLiveData<Throwable> loginError = new MutableLiveData<>();
+    //SingleLive
 
     public static LoginRepo getInstance() {
         if (instance == null) {
