@@ -137,12 +137,12 @@ public class FitGridView extends GridView {
         this.row = row;
     }
 
-    private FitGridAdapterNew fitGridAdapter;
+    private FitGridAdapter fitGridAdapter;
 
     /**
      * @param fitGridAdapter sets your adapter later in updateAdapter method.
      */
-    public void setFitGridAdapter(FitGridAdapterNew fitGridAdapter) {
+    public void setFitGridAdapter(FitGridAdapter fitGridAdapter) {
         this.fitGridAdapter = fitGridAdapter;
     }
 }

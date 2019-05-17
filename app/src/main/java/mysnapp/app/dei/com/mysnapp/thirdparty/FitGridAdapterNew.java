@@ -40,6 +40,7 @@ public abstract class FitGridAdapterNew<T> extends BaseAdapter {
     }
 
     public FitGridAdapterNew(Context context, int layoutID, int row, int column) {
+        super();
         this.context = context;
         this.layoutID = layoutID;
         this.row = row;
@@ -68,17 +69,20 @@ public abstract class FitGridAdapterNew<T> extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return size == 0 ? column * row : size;
+        return list.size();//size == 0 ? column * row : size;
     }
 
     @Override
-    public Object getItem(int position) {
+    public T getItem(int position) {
+        if (position < list.size()) {
+            return list.get(position);
+        }
         return null;
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     void setColumnHeight(int columnHeight) {

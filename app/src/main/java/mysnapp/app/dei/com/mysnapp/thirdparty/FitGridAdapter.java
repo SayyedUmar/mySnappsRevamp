@@ -9,13 +9,11 @@ import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-/*
 
 public abstract class FitGridAdapter<T> extends BaseAdapter {
 
     private Context context;
-    private int columnWidth, columnHeight, row, column, layoutID;
-    private List<T> list = new ArrayList();
+    private int columnWidth, columnHeight, row, column, layoutID, size = 0;
 
     public FitGridAdapter(Context context) {
         this.context = context;
@@ -26,11 +24,10 @@ public abstract class FitGridAdapter<T> extends BaseAdapter {
         this.layoutID = layoutID;
     }
 
-    public FitGridAdapter(Context context, int layoutID, List<T> list) {
+    public FitGridAdapter(Context context, int layoutID, int nSize) {
         this.context = context;
         this.layoutID = layoutID;
-        this.list = list;
-//        size = list.size();
+        size = nSize;
     }
 
     public FitGridAdapter(Context context, int layoutID, int row, int column) {
@@ -38,7 +35,7 @@ public abstract class FitGridAdapter<T> extends BaseAdapter {
         this.layoutID = layoutID;
         this.row = row;
         this.column = column;
-        //size = row * column;
+        size = row * column;
     }
 
     @Override
@@ -62,7 +59,7 @@ public abstract class FitGridAdapter<T> extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return list.size() == 0 ? column * row : list.size();
+        return size == 0 ? column * row : size;
     }
 
     @Override
@@ -72,7 +69,7 @@ public abstract class FitGridAdapter<T> extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     void setColumnHeight(int columnHeight) {
@@ -91,4 +88,3 @@ public abstract class FitGridAdapter<T> extends BaseAdapter {
         this.row = row;
     }
 }
-*/

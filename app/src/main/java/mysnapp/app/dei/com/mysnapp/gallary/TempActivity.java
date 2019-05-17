@@ -14,15 +14,15 @@ import mysnapp.app.dei.com.mysnapp.thirdparty.FitGridView;
 
 public class TempActivity extends AppCompatActivity {
 
-   /* private FitGridView gridView;
+    private FitGridView gridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temp);
 
-        gridView = (FitGridView) findViewById(R.id.gridView);
-        //gridView.setFitGridAdapter(new GridAdapter(this));
+        gridView = findViewById(R.id.gridView);
+        gridView.setFitGridAdapter(new GridAdapter(this));
     }
 
     public void onClick(View v) {
@@ -39,7 +39,7 @@ public class TempActivity extends AppCompatActivity {
         FitGridView gridView = new FitGridView(this);
         gridView.setNumColumns(3);
         gridView.setNumRows(4);
-        //gridView.setFitGridAdapter(new GridAdapter(this));
+        gridView.setFitGridAdapter(new GridAdapter(this));
         builder.setView(gridView);
 
         builder.show();
@@ -82,5 +82,5 @@ public class TempActivity extends AppCompatActivity {
         //gridView.setNumRows(r);
         gridView.setNumColumns(c);
         gridView.update();
-    }*/
+    }
 }

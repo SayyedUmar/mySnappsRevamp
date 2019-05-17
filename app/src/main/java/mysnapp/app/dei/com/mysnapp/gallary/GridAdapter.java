@@ -1,6 +1,13 @@
 package mysnapp.app.dei.com.mysnapp.gallary;
 
-/*
+
+import android.content.Context;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import mysnapp.app.dei.com.mysnapp.R;
+import mysnapp.app.dei.com.mysnapp.thirdparty.FitGridAdapter;
 
 public class GridAdapter extends FitGridAdapter {
 
@@ -41,4 +48,4 @@ public class GridAdapter extends FitGridAdapter {
             }
         });
     }
-}*/
+}

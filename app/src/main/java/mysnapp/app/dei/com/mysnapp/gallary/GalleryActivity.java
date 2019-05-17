@@ -118,11 +118,11 @@ public class GalleryActivity  extends BaseActivity<ActivityGalleryBinding> {
             if (images != null) {
                 this.list.clear();
                 this.list.addAll(images);
-                //adapter.notifyDataSetChanged();
                 //gridView.setAdapter(adapter);
                 gridView.setNumColumns(3);
                 gridView.setNumRows(list.size()/3);
                 gridView.update();
+                adapter.notifyDataSetChanged();
             }
         });
     }
