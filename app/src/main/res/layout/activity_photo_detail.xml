@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="mysnapp.app.dei.com.mysnapp.gallary.GalleryActivityVM" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        >
+
+        <include layout="@layout/custom_toolbar"
+            android:id="@+id/toolbar"
+            />
+
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_below="@+id/toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Gallery"
+            android:textSize="16sp"
+            android:fontFamily="@font/mont_medium"
+            android:textColor="@color/redTextColor"
+            android:drawablePadding="10dp"
+            android:layout_centerHorizontal="true"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            />
+
+        <android.support.design.card.MaterialCardView
+            android:id="@+id/mat1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv1"
+            android:layout_alignParentRight="true"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="2dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/ligh_gray"
+                android:text="Select Venue"
+                android:drawableRight="@drawable/ic_id_down_arrow"
+                android:drawablePadding="10dp"
+                android:layout_gravity="center"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                />
+
+
+
+        </android.support.design.card.MaterialCardView>
+
+        <RelativeLayout
+            android:id="@+id/rellay1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mat1"
+            android:layout_marginTop="8dp"
+            >
+
+            <TextView
+                android:id="@+id/tvHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gallery"
+                android:fontFamily="@font/mont_medium"
+                android:background="@drawable/bg_rect_sharp_red_corner"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="2dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Expired on 17th June"
+                android:textSize="12sp"
+                android:textColor="@color/redTextColor"
+                android:fontFamily="@font/mont_light"
+                android:layout_alignParentRight="true"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_below="@+id/rellay1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/linlay1"
+            android:orientation="vertical"
+            >
+
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:orientation="vertical"
+               android:layout_above="@+id/linlay2"
+               >
+
+               <ImageView
+                   android:id="@+id/imageView"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:background="@color/ligh_gray"
+                   android:layout_above="@+id/tvTitle"
+                   />
+
+               <ProgressBar
+                   android:id="@+id/progress"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_centerInParent="true"
+                   android:visibility="gone"
+                   />
+
+               <TextView
+                   android:id="@+id/tvTitle"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentBottom="true"
+                   android:layout_marginLeft="10dp"
+                   android:layout_marginRight="10dp"
+                   android:layout_marginBottom="0dp"
+                   android:fontFamily="@font/mont_light"
+                   android:gravity="center"
+                   android:maxLines="1"
+                   android:text="Available Until: 20 Mar 2019"
+                   android:textColor="@color/redTextColor"
+                   android:textSize="12sp" />
+
+           </RelativeLayout>
+
+           <LinearLayout
+               android:id="@+id/linlay2"
+               android:layout_alignParentBottom="true"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:layout_marginLeft="20dp"
+               android:layout_marginRight="20dp"
+               android:layout_marginTop="10dp"
+               >
+
+               <LinearLayout
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:gravity="center"
+                   >
+
+                   <TextView
+                       android:id="@+id/tvEdit"
+                       android:layout_width="60dp"
+                       android:layout_height="60dp"
+                       android:background="@drawable/bg_rect_round_gray"
+                       />
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_below="@+id/tv3"
+                       android:text="Edit"
+                       android:textColor="@color/black_light1"
+                       android:fontFamily="@font/mont_medium"
+                       android:textSize="12sp"
+                       />
+
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:gravity="center"
+                   >
+
+                   <TextView
+                       android:id="@+id/tvSave"
+                       android:layout_width="60dp"
+                       android:layout_height="60dp"
+                       android:background="@drawable/bg_rect_round_gray"
+                       />
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_below="@+id/tv3"
+                       android:text="Save"
+                       android:textColor="@color/black_light1"
+                       android:fontFamily="@font/mont_medium"
+                       android:textSize="12sp"
+                       />
+
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:gravity="center"
+                   >
+
+                   <TextView
+                       android:id="@+id/tvShare"
+                       android:layout_width="60dp"
+                       android:layout_height="60dp"
+                       android:background="@drawable/bg_rect_round_gray"
+                       />
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_below="@+id/tv3"
+                       android:text="Share"
+                       android:textColor="@color/black_light1"
+                       android:fontFamily="@font/mont_medium"
+                       android:textSize="12sp"
+                       />
+
+               </LinearLayout>
+               <LinearLayout
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:gravity="center"
+                   >
+
+                   <TextView
+                       android:id="@+id/tvPurchase"
+                       android:layout_width="60dp"
+                       android:layout_height="60dp"
+                       android:background="@drawable/bg_rect_round_gray"
+                       />
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_below="@+id/tv3"
+                       android:text="Purchase"
+                       android:textColor="@color/black_light1"
+                       android:fontFamily="@font/mont_medium"
+                       android:textSize="12sp"
+                       />
+
+               </LinearLayout>
+
+           </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linlay1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            >
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@color/redTextColor"
+                android:textColor="@color/white"
+                android:text="Packages"
+                android:fontFamily="@font/mont_medium"
+                />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@color/redTextColor"
+                android:textColor="@color/white"
+                android:text="Packages"
+                android:fontFamily="@font/mont_medium"
+                android:layout_marginLeft="1dp"
+                />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@color/redTextColor"
+                android:textColor="@color/white"
+                android:text="Products"
+                android:fontFamily="@font/mont_medium"
+                android:layout_marginLeft="1dp"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>
+    <!--
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.constraint.ConstraintLayout>-->

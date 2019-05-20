@@ -3,6 +3,7 @@ package mysnapp.app.dei.com.mysnapp.gallary;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,6 +36,7 @@ import dmax.dialog.SpotsDialog;
 import mysnapp.app.dei.com.mysnapp.R;
 import mysnapp.app.dei.com.mysnapp.data.local.entity.Image;
 import mysnapp.app.dei.com.mysnapp.databinding.ActivityGalleryBinding;
+import mysnapp.app.dei.com.mysnapp.photodetail.PhotoDetailActivity;
 import mysnapp.app.dei.com.mysnapp.utils.Utils;
 import mysnapp.app.dei.com.mysnapp.view.adapters.GenericAdapter;
 import mysnapp.app.dei.com.mysnapp.view.base.BaseActivity;
@@ -54,6 +56,8 @@ public class GalleryActivity  extends BaseActivity<ActivityGalleryBinding> {
     GridView gridView;
     @BindView(R.id.tvHeading)
     TextView tvHeading;
+    @BindView(R.id.img_back)
+    ImageView img_back;
 
     @Override
     protected int getLayoutRes() {
@@ -90,6 +94,8 @@ public class GalleryActivity  extends BaseActivity<ActivityGalleryBinding> {
     }
 
     private void setEventListeners() {
+
+        img_back.setOnClickListener(v -> onBackPressed());
 
         viewModel.getAllImages().observe(this, images -> {
             if (images != null) {
@@ -178,7 +184,8 @@ public class GalleryActivity  extends BaseActivity<ActivityGalleryBinding> {
                 });
 
                 v.setOnClickListener(v1 -> {
-                    
+                    startActivity(new Intent(v.getContext(), PhotoDetailActivity.class)
+                            .putExtra("ITEM", item));
                 });
 
             }
