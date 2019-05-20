@@ -1,13 +1,19 @@
 package mysnapp.app.dei.com.mysnapp.gallary;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
@@ -29,8 +35,8 @@ import dmax.dialog.SpotsDialog;
 import mysnapp.app.dei.com.mysnapp.R;
 import mysnapp.app.dei.com.mysnapp.data.local.entity.Image;
 import mysnapp.app.dei.com.mysnapp.databinding.ActivityGalleryBinding;
-import mysnapp.app.dei.com.mysnapp.thirdparty.FitGridAdapterNew;
-import mysnapp.app.dei.com.mysnapp.thirdparty.FitGridView;
+import mysnapp.app.dei.com.mysnapp.utils.Utils;
+import mysnapp.app.dei.com.mysnapp.view.adapters.GenericAdapter;
 import mysnapp.app.dei.com.mysnapp.view.base.BaseActivity;
 
 
@@ -38,13 +44,16 @@ public class GalleryActivity  extends BaseActivity<ActivityGalleryBinding> {
 
     private static final String TAG = "GalleryActivity";
 
-    @BindView(R.id.gridView)
-    FitGridView gridView;
     private GalleryActivityVM viewModel;
     private AlertDialog progress;
     private List<Image> list = new ArrayList<>();
     private ImageLoader imageLoader;
-    private FitGridAdapterNew adapter;
+    private GenericAdapter adapter;
+
+    @BindView(R.id.gridView)
+    GridView gridView;
+    @BindView(R.id.tvHeading)
+    TextView tvHeading;
 
     @Override
     protected int getLayoutRes() {
@@ -74,42 +83,10 @@ public class GalleryActivity  extends BaseActivity<ActivityGalleryBinding> {
         imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(getBaseContext()));
         progress = new SpotsDialog(this, R.style.DilaogStyle);
-        adapter = new FitGridAdapterNew(this, R.layout.row_gallery_gridview, list) {
-            @Override
-            public void onCreateView(int position, View view) {
-                view.setTag(new Holder(view));
-            }
 
-            @Override
-            public void onBindView(int position, View view) {
-                Holder holder = (Holder) view.getTag();
-                imageLoader.displayImage(list.get(position).getImageThumbnailUrl(), holder.imageView, new ImageLoadingListener() {
-                    @Override
-                    public void onLoadingStarted(String imageUri, View view) {
-                        Log.e(TAG, "onLoadingStarted: "+ imageUri);
-                    }
-
-                    @Override
-                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                        Log.e(TAG, "onLoadingFailed: "+ imageUri);
-                    }
-
-                    @Override
-                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                        Log.e(TAG, "onLoadingComplete: "+ imageUri);
-                        holder.imageView.setImageBitmap(loadedImage);
-                    }
-
-                    @Override
-                    public void onLoadingCancelled(String imageUri, View view) {
-                        Log.e(TAG, "onLoadingCancelled: "+ imageUri);
-                    }
-                });
-            }
-        };
-        gridView.setNumColumns(3);
+        gridView.setColumnWidth(GridView.AUTO_FIT);
+        adapter = getAdapter();
         gridView.setAdapter(adapter);
-
     }
 
     private void setEventListeners() {
@@ -118,10 +95,6 @@ public class GalleryActivity  extends BaseActivity<ActivityGalleryBinding> {
             if (images != null) {
                 this.list.clear();
                 this.list.addAll(images);
-                //gridView.setAdapter(adapter);
-                gridView.setNumColumns(3);
-                gridView.setNumRows(list.size()/3);
-                gridView.update();
                 adapter.notifyDataSetChanged();
             }
         });
@@ -161,6 +134,55 @@ public class GalleryActivity  extends BaseActivity<ActivityGalleryBinding> {
                 .showImageOnLoading(R.drawable.ic_placeholder_image).build();
 
         return options;
+    }
+
+    private GenericAdapter getAdapter() {
+        return new GenericAdapter<Image>(list) {
+            @Override
+            public View onCreateView(View v, int pos, ViewGroup parent) {
+                v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_gallery_gridview, parent, false);
+                ImageView imageView = v.findViewById(R.id.imageView);
+                v.setTag(imageView);
+                DisplayMetrics metrics = Utils.getDisplayMetrics((Activity) v.getContext());
+                int width = metrics.widthPixels /3 - 30;
+                imageView.setLayoutParams(new GridView.LayoutParams(width, width));
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                imageView.setPadding(0, 0, 0, 0);
+                return v;
+            }
+
+            @Override
+            public void onBindView(View v, int pos, Image item) {
+                ImageView imageView = (ImageView) v.getTag();
+                imageLoader.displayImage(list.get(pos).getImageThumbnailUrl(), imageView, new ImageLoadingListener() {
+                    @Override
+                    public void onLoadingStarted(String imageUri, View view) {
+                        Log.e(TAG, "onLoadingStarted: " + imageUri);
+                    }
+
+                    @Override
+                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                        Log.e(TAG, "onLoadingFailed: " + imageUri);
+                    }
+
+                    @Override
+                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                        Log.e(TAG, "onLoadingComplete: " + imageUri);
+                        imageView.setImageBitmap(loadedImage);
+                    }
+
+                    @Override
+                    public void onLoadingCancelled(String imageUri, View view) {
+                        Log.e(TAG, "onLoadingCancelled: " + imageUri);
+                    }
+                });
+
+                v.setOnClickListener(v1 -> {
+                    
+                });
+
+            }
+        };
     }
 
 }

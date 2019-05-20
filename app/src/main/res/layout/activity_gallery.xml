@@ -74,13 +74,15 @@
             >
 
             <TextView
+                android:id="@+id/tvHeading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Imagica"
+                android:text="Gallery"
                 android:fontFamily="@font/mont_medium"
                 android:background="@drawable/bg_rect_sharp_red_corner"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
+                android:paddingBottom="2dp"
                 />
 
             <TextView
@@ -95,15 +97,20 @@
 
         </RelativeLayout>
 
-        <mysnapp.app.dei.com.mysnapp.thirdparty.FitGridView
+        <GridView
             android:id="@+id/gridView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="10dp"
             android:layout_below="@+id/rellay1"
             android:layout_above="@+id/linlay1"
             android:listSelector="@android:color/transparent"
-            app:column="3"
-            app:row="4"/>
+            android:numColumns="3"
+            android:verticalSpacing="10dp"
+            android:horizontalSpacing="10dp"
+            android:stretchMode="columnWidth"
+            tools:listitem="@layout/row_gallery_gridview"
+            />
 
 
         <LinearLayout
@@ -131,7 +138,7 @@
                 android:textColor="@color/white"
                 android:text="Packages"
                 android:fontFamily="@font/mont_medium"
-                android:layout_marginLeft="2dp"
+                android:layout_marginLeft="1dp"
                 />
 
             <Button
@@ -140,9 +147,9 @@
                 android:layout_height="wrap_content"
                 android:background="@color/redTextColor"
                 android:textColor="@color/white"
-                android:text="Packages"
+                android:text="Products"
                 android:fontFamily="@font/mont_medium"
-                android:layout_marginLeft="2dp"
+                android:layout_marginLeft="1dp"
                 />
             
         </LinearLayout>

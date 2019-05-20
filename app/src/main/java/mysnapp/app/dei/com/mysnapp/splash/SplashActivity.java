@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import mysnapp.app.dei.com.mysnapp.R;
-import mysnapp.app.dei.com.mysnapp.gallary.TempActivity;
 import mysnapp.app.dei.com.mysnapp.home.ClaimPhotosActivity;
 import mysnapp.app.dei.com.mysnapp.login.LoginActivityNew;
 import mysnapp.app.dei.com.mysnapp.utils.AppConst;
@@ -34,7 +33,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void navigateToHome() {
-        new Handler().postDelayed(() -> startActivity(new Intent(SplashActivity.this, TempActivity.class)), 3000);
+        new Handler().postDelayed(() -> startActivity(new Intent(SplashActivity.this, ClaimPhotosActivity.class)), 3000);
     }
 
 

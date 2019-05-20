@@ -1,5 +1,9 @@
 package mysnapp.app.dei.com.mysnapp.utils;
 
+import android.app.Activity;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -43,5 +47,20 @@ public class Utils {
         cal.setTimeInMillis(milli);
         return cal.getTime();
     }
+
+    public static DisplayMetrics getDisplayMetrics (Activity context)  {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        context.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        return displayMetrics;
+    }
+
+    public static int dpToPx(int dp) {
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
+    }
+
+    public static int pxToDp(int px) {
+        return (int) (px / Resources.getSystem().getDisplayMetrics().density);
+    }
+
 
 }

@@ -3,7 +3,6 @@ package mysnapp.app.dei.com.mysnapp.home;
 import android.app.AlertDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.databinding.Bindable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -31,12 +30,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import dmax.dialog.SpotsDialog;
 import mysnapp.app.dei.com.mysnapp.R;
-import mysnapp.app.dei.com.mysnapp.databinding.ActivityLogin1Binding;
+import mysnapp.app.dei.com.mysnapp.common.SuperActivity;
 import mysnapp.app.dei.com.mysnapp.gallary.GalleryActivity;
 import mysnapp.app.dei.com.mysnapp.utils.Logs;
-import mysnapp.app.dei.com.mysnapp.view.base.BaseActivity;
 
-public class ClaimPhotosActivity  extends BaseActivity<ActivityLogin1Binding>
+public class ClaimPhotosActivity  extends SuperActivity
                                     implements NavigationView.OnNavigationItemSelectedListener {
 
 
@@ -60,11 +58,11 @@ public class ClaimPhotosActivity  extends BaseActivity<ActivityLogin1Binding>
     private ClaimPhotosViewModel viewModel;
     private AlertDialog progress;
 
-    @Override
+    /*@Override
     protected int getLayoutRes() {
         return R.layout.activity_claim_photos;
     }
-
+*/
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

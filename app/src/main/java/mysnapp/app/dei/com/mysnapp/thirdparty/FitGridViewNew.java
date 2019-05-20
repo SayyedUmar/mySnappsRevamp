@@ -8,25 +8,25 @@ import android.widget.GridView;
 
 import mysnapp.app.dei.com.mysnapp.R;
 
-public class FitGridView extends GridView {
+public class FitGridViewNew extends GridView {
 
-    public FitGridView(Context context) {
+    public FitGridViewNew(Context context) {
         super(context);
         init(null);
     }
 
-    public FitGridView(Context context, AttributeSet attrs) {
+    public FitGridViewNew(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
     }
 
-    public FitGridView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public FitGridViewNew(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public FitGridView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public FitGridViewNew(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(attrs);
     }
@@ -137,12 +137,12 @@ public class FitGridView extends GridView {
         this.row = row;
     }
 
-    private FitGridAdapter fitGridAdapter;
+    private FitGridAdapterNew fitGridAdapter;
 
     /**
      * @param fitGridAdapter sets your adapter later in updateAdapter method.
      */
-    public void setFitGridAdapter(FitGridAdapter fitGridAdapter) {
+    public void setFitGridAdapter(FitGridAdapterNew fitGridAdapter) {
         this.fitGridAdapter = fitGridAdapter;
     }
 }
