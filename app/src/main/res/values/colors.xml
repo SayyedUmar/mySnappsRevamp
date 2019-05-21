@@ -12,6 +12,8 @@
     <color name="black">#000</color>
     <color name="black_light1">#404140</color>
     <color name="light_gray">#e6e6e6</color>
+    <color name="light_gray1">#DEDEDE</color>
     <color name="darkgray">#666</color>
+    <color name="darkgray1">#B2B2B2</color>
     <color name="transparent">#00000000</color>
 </resources>

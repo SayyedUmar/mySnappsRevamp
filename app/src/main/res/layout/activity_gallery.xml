@@ -106,8 +106,8 @@
             android:layout_above="@+id/linlay1"
             android:listSelector="@android:color/transparent"
             android:numColumns="3"
-            android:verticalSpacing="10dp"
-            android:horizontalSpacing="10dp"
+            android:verticalSpacing="4dp"
+            android:horizontalSpacing="4dp"
             android:stretchMode="columnWidth"
             tools:listitem="@layout/row_gallery_gridview"
             />

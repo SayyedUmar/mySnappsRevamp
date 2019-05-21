@@ -15,11 +15,9 @@ import retrofit2.HttpException;
 
 public class SuperActivity extends AppCompatActivity {
 
-    //private RxBus bus;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        //bus = RxBus.getInstance();
         super.onCreate(savedInstanceState);
     }
 

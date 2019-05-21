@@ -44,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv1"
+            android:layout_marginTop="8dp"
             android:layout_alignParentRight="true"
             app:cardCornerRadius="2dp"
             app:cardElevation="2dp"
@@ -52,20 +53,33 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/ligh_gray"
+                android:background="@drawable/bg_rect_sharp_corner_gray"
                 android:text="Select Venue"
                 android:drawableRight="@drawable/ic_id_down_arrow"
                 android:drawablePadding="10dp"
-                android:layout_gravity="center"
+                android:gravity="center"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
+
                 />
-
-
 
         </android.support.design.card.MaterialCardView>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Expired on 17th June"
+            android:textSize="12sp"
+            android:textColor="@color/redTextColor"
+            android:fontFamily="@font/mont_regular"
+            android:layout_alignParentLeft="true"
+            android:layout_alignBottom="@+id/mat1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="2dp"
+            />
+
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/rellay1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -115,7 +129,17 @@
                >
 
                <ImageView
+                   android:visibility="gone"
                    android:id="@+id/imageView"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:background="@color/ligh_gray"
+                   android:layout_above="@+id/tvTitle"
+                   />
+
+
+               <android.support.v4.view.ViewPager
+                   android:id="@+id/viewPager"
                    android:layout_width="match_parent"
                    android:layout_height="match_parent"
                    android:background="@color/ligh_gray"

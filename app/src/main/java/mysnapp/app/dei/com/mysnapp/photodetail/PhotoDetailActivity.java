@@ -1,29 +1,22 @@
 package mysnapp.app.dei.com.mysnapp.photodetail;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
+import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import mysnapp.app.dei.com.mysnapp.MyApp;
 import mysnapp.app.dei.com.mysnapp.R;
 import mysnapp.app.dei.com.mysnapp.common.SuperActivity;
 import mysnapp.app.dei.com.mysnapp.utils.Logs;
@@ -45,9 +38,12 @@ public class PhotoDetailActivity extends SuperActivity {
     TextView tvPurchase;
     @BindView(R.id.progress)
     ProgressBar progressBar;
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
 
-    private ImageLoader imageLoader;
+
     private PhotoDetailVM viewModel;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,19 +52,27 @@ public class PhotoDetailActivity extends SuperActivity {
         setContentView(R.layout.activity_photo_detail);
         ButterKnife.bind(this);
 
+        setViewModel(savedInstanceState);
         initialize();
         setEventListeners();
         setObservers();
     }
 
+    private void setViewModel(Bundle savedInstanceState) {
+        viewModel = ViewModelProviders.of(this).get(PhotoDetailVM.class);
+        if (savedInstanceState == null) {
+            viewModel.init(this,
+                    getIntent().getIntExtra("POSITION", 0),
+                    getIntent().getParcelableExtra("ITEM"),
+                    getIntent().getParcelableArrayListExtra("ITEM_LIST")
+            );
+        }
+    }
+
     private void setObservers() {
         viewModel.getImageSaveListener().observe(this, msg -> {
-            Logs.shortToast(getApplicationContext(), msg);
-            progressBar.setVisibility(View.GONE);
-        });
-
-        viewModel.getImageShareListener().observe(this, msg -> {
-            shareImage((Uri) msg[0]);
+            if (!msg.isEmpty())
+                Logs.shortToast(getApplicationContext(), msg);
             progressBar.setVisibility(View.GONE);
         });
     }
@@ -76,44 +80,63 @@ public class PhotoDetailActivity extends SuperActivity {
 
 
     private void initialize() {
-        viewModel = ViewModelProviders.of(this).get(PhotoDetailVM.class);
-        viewModel.setModel(getIntent().getParcelableExtra("ITEM"));
-        imageLoader = ImageLoader.getInstance();
-        imageLoader.displayImage(viewModel.getModel().getImageUrl(), imageView);
+        viewModel.getImageLoader().displayImage(viewModel.getModel().getImageUrl(), imageView);
+        viewPager.setOffscreenPageLimit(10);
+        viewPager.setAdapter(viewModel.getPagerAdapter());
+        new Handler().postAtTime(() -> {
+            viewPager.setCurrentItem(viewModel.getImagePosition());
+        }, 100);
     }
 
     private void setEventListeners() {
+
         img_back.setOnClickListener(v -> onBackPressed());
 
         tvEdit.setOnClickListener(v -> {
-            enableBackground(tvEdit, tvSave, tvShare, tvPurchase);
+            viewModel.enableBackground(tvEdit, tvSave, tvShare, tvPurchase);
         });
         tvSave.setOnClickListener(v -> {
-            enableBackground(tvSave, tvEdit, tvShare, tvPurchase);
+            viewModel.enableBackground(tvSave, tvEdit, tvShare, tvPurchase);
             saveORshareImage(true);
         });
         tvShare.setOnClickListener(v -> {
-            enableBackground(tvShare, tvEdit, tvSave, tvPurchase);
+            viewModel.enableBackground(tvShare, tvEdit, tvSave, tvPurchase);
             saveORshareImage(false);
         });
         tvPurchase.setOnClickListener(v -> {
-            enableBackground(tvPurchase, tvEdit, tvSave, tvShare);
+            viewModel.enableBackground(tvPurchase, tvEdit, tvSave, tvShare);
+        });
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                viewModel.setModel(position);
+                viewModel.getImageLoader().displayImage(viewModel.getModel().getImageUrl(), imageView, MyApp.getDisplayImageOptions());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
         });
     }
 
     private void saveORshareImage(boolean toSave) {
+
         AndPermission.with(this)
                 .runtime()
                 .permission(Permission.Group.STORAGE)
                 .onGranted(permissions ->  {
-
                     BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
                     if (drawable != null) {
                         progressBar.setVisibility(View.VISIBLE);
                         if (toSave) {
-                            viewModel.saveToGallery(drawable.getBitmap());
+                            viewModel.saveToGallery(viewPager.getCurrentItem(), drawable.getBitmap());
                         } else {
-                            viewModel.saveShareImage(drawable.getBitmap());
+                            viewModel.saveShareImage(viewPager.getCurrentItem(), drawable.getBitmap(), this);
                         }
                     }
                 })
@@ -121,17 +144,4 @@ public class PhotoDetailActivity extends SuperActivity {
                 .start();
     }
 
-    public void enableBackground(TextView selected, TextView...unselected) {
-        selected.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.bg_rect_round_red));
-        for (TextView item : unselected) {
-            item.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.bg_rect_round_gray));
-        }
-    }
-
-    private void shareImage(Uri uri) {
-        Intent share = new Intent(Intent.ACTION_SEND);
-        share.setType("image/jpeg");
-        share.putExtra(Intent.EXTRA_STREAM, uri);
-        startActivity(Intent.createChooser(share, "Share Image"));
-    }
 }
