@@ -58,6 +58,8 @@
 
         <activity android:name=".photodetail.PhotoDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".editphoto.EditPhotoActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".home.WebviewActivity"

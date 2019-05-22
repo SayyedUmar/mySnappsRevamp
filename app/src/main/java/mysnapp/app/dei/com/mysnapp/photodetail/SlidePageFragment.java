@@ -52,6 +52,9 @@ public class SlidePageFragment extends Fragment {
             imageLoader.displayImage(url, imageView, MyApp.getDisplayImageOptions());
         }
 
+        imageView.setOnClickListener(view -> MyApp.getBus().send(image));
+
+
         return rootView;
     }
 }

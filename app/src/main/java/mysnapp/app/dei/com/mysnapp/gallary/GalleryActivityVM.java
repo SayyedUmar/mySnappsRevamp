@@ -6,10 +6,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Parcelable;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +15,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,28 +61,7 @@ public class GalleryActivityVM extends ViewModel {
             @Override
             public void onBindView(View v, int pos, Image item) {
                 ImageView imageView = (ImageView) v.getTag();
-                imageLoader.displayImage(list.get(pos).getImageThumbnailUrl(), imageView, MyApp.getDisplayImageOptions(), new ImageLoadingListener() {
-                    @Override
-                    public void onLoadingStarted(String imageUri, View view) {
-                        Log.e(TAG, "onLoadingStarted: " + imageUri);
-                    }
-
-                    @Override
-                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                        Log.e(TAG, "onLoadingFailed: " + imageUri);
-                    }
-
-                    @Override
-                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                        Log.e(TAG, "onLoadingComplete: " + imageUri);
-                        imageView.setImageBitmap(loadedImage);
-                    }
-
-                    @Override
-                    public void onLoadingCancelled(String imageUri, View view) {
-                        Log.e(TAG, "onLoadingCancelled: " + imageUri);
-                    }
-                });
+                imageLoader.displayImage(list.get(pos).getImageThumbnailUrl(), imageView, MyApp.getDisplayImageOptions());
 
                 v.setOnClickListener(v1 -> {
                     v.getContext().startActivity(new Intent(v.getContext(), PhotoDetailActivity.class)

@@ -1,6 +1,7 @@
 package mysnapp.app.dei.com.mysnapp.photodetail;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +20,8 @@ import butterknife.ButterKnife;
 import mysnapp.app.dei.com.mysnapp.MyApp;
 import mysnapp.app.dei.com.mysnapp.R;
 import mysnapp.app.dei.com.mysnapp.common.SuperActivity;
+import mysnapp.app.dei.com.mysnapp.data.local.entity.Image;
+import mysnapp.app.dei.com.mysnapp.editphoto.EditPhotoActivity;
 import mysnapp.app.dei.com.mysnapp.utils.Logs;
 
 public class PhotoDetailActivity extends SuperActivity {
@@ -104,6 +107,7 @@ public class PhotoDetailActivity extends SuperActivity {
             saveORshareImage(false);
         });
         tvPurchase.setOnClickListener(v -> {
+            startActivity(new Intent(this, EditPhotoActivity.class));
             viewModel.enableBackground(tvPurchase, tvEdit, tvSave, tvShare);
         });
 
@@ -122,6 +126,12 @@ public class PhotoDetailActivity extends SuperActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
+
+
+        MyApp.getBus().toObservable().subscribe(image ->
+                startActivity(new Intent(this, EditPhotoActivity.class)
+                        .putExtra("ITEM", (Image) image))
+        );
     }
 
     private void saveORshareImage(boolean toSave) {

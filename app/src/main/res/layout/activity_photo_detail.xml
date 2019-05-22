@@ -23,7 +23,6 @@
             android:id="@+id/toolbar"
             />
 
-
         <TextView
             android:id="@+id/tv1"
             android:layout_below="@+id/toolbar"
