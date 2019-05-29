@@ -15,12 +15,11 @@ import mysnapp.app.dei.com.mysnapp.R;
 
 
 public class PageFragment extends Fragment {
-    private static final String PIC_URL = "slidepagefragment.picurl";
 
     private RecyclerView recyclerView;
 
     public static<T> PageFragment newInstance(@NonNull final T image) {
-        Bundle arguments = new Bundle();
+        //Bundle arguments = new Bundle();
         //arguments.putString(PIC_URL, image.getImageUrl());
 
         PageFragment fragment = new PageFragment();

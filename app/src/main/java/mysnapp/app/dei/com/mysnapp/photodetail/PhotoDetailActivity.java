@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -15,13 +16,20 @@ import android.widget.TextView;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observer;
+import io.reactivex.Scheduler;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import mysnapp.app.dei.com.mysnapp.MyApp;
 import mysnapp.app.dei.com.mysnapp.R;
 import mysnapp.app.dei.com.mysnapp.common.SuperActivity;
 import mysnapp.app.dei.com.mysnapp.data.local.entity.Image;
 import mysnapp.app.dei.com.mysnapp.editphoto.EditPhotoActivity;
+import mysnapp.app.dei.com.mysnapp.preview.PreviewActivity;
 import mysnapp.app.dei.com.mysnapp.utils.Logs;
 
 public class PhotoDetailActivity extends SuperActivity {
@@ -80,9 +88,35 @@ public class PhotoDetailActivity extends SuperActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Disposable d = MyApp.getBus().toObservable().subscribe(viewModel.getConsumer());
+        viewModel.getCompositeDisposable().add(d);
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        viewModel.getCompositeDisposable().clear();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        viewModel.getCompositeDisposable().clear();
+    }
 
     private void initialize() {
+
+        viewModel.setConsumer(image ->
+                startActivity(new Intent(this, PreviewActivity.class)
+                        .putParcelableArrayListExtra("ITEM_LIST", (ArrayList<? extends Parcelable>) viewModel.getImageList())
+                        .putExtra("POSITION", viewModel.getImagePosition())
+                        .putExtra("ITEM", image)
+                )
+        );
+
         viewModel.getImageLoader().displayImage(viewModel.getModel().getImageUrl(), imageView);
         viewPager.setOffscreenPageLimit(10);
         viewPager.setAdapter(viewModel.getPagerAdapter());
@@ -107,7 +141,9 @@ public class PhotoDetailActivity extends SuperActivity {
             saveORshareImage(false);
         });
         tvPurchase.setOnClickListener(v -> {
-            startActivity(new Intent(this, EditPhotoActivity.class));
+            startActivity(new Intent(this, EditPhotoActivity.class)
+                    .putExtra("ITEM", viewModel.getModel())
+            );
             viewModel.enableBackground(tvPurchase, tvEdit, tvSave, tvShare);
         });
 
@@ -126,12 +162,6 @@ public class PhotoDetailActivity extends SuperActivity {
             public void onPageScrollStateChanged(int state) {
             }
         });
-
-
-        MyApp.getBus().toObservable().subscribe(image ->
-                startActivity(new Intent(this, EditPhotoActivity.class)
-                        .putExtra("ITEM", (Image) image))
-        );
     }
 
     private void saveORshareImage(boolean toSave) {

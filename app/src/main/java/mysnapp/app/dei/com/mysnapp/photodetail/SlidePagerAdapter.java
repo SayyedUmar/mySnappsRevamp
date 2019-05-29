@@ -16,7 +16,7 @@ public class SlidePagerAdapter extends FragmentStatePagerAdapter {
 
     private List<Image> images;
     public Map<Integer, Fragment> mPageReferenceMap = new HashMap<>();
-    SlidePagerAdapter(List<Image> images, FragmentManager fm) {
+    public SlidePagerAdapter(List<Image> images, FragmentManager fm) {
         super(fm);
         this.images = images;
     }

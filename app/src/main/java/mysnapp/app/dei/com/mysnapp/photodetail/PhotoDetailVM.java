@@ -15,6 +15,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Consumer;
 import mysnapp.app.dei.com.mysnapp.MyApp;
 import mysnapp.app.dei.com.mysnapp.R;
 import mysnapp.app.dei.com.mysnapp.data.local.entity.Image;
@@ -30,12 +32,15 @@ public class PhotoDetailVM extends ViewModel {
     private List<Image> imageList;
     private SlidePagerAdapter pagerAdapter;
     private ImageLoader imageLoader;
+    private CompositeDisposable compositeDisposable;
+    private Consumer<Image> consumer;
 
     public Image getModel() {
         return model;
     }
 
     public void setModel(int pos) {
+        imagePosition = pos;
         this.model = imageList.get(pos);
     }
 
@@ -51,7 +56,24 @@ public class PhotoDetailVM extends ViewModel {
         return imageList;
     }
 
+    public SlidePagerAdapter getPagerAdapter() {
+        return pagerAdapter;
+    }
+
+    public CompositeDisposable getCompositeDisposable() {
+        return compositeDisposable;
+    }
+
+    public Consumer<Image> getConsumer() {
+        return consumer;
+    }
+
+    public void setConsumer(Consumer<Image> consumer) {
+        this.consumer = consumer;
+    }
+
     public void init (FragmentActivity ctx, int position, Image image, List<Image> list) {
+        compositeDisposable = new CompositeDisposable();
         imageLoader = MyApp.getImageLoader();
         imagePosition = position;
         model = image;
@@ -110,10 +132,6 @@ public class PhotoDetailVM extends ViewModel {
         for (TextView item : unselected) {
             item.setBackground(ContextCompat.getDrawable(selected.getContext(), R.drawable.bg_rect_round_gray));
         }
-    }
-
-    public SlidePagerAdapter getPagerAdapter() {
-        return pagerAdapter;
     }
 
     public BitmapDrawable getImageBitmap(int pos) {

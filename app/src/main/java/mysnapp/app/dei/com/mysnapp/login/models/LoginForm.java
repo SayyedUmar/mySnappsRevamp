@@ -1,6 +1,5 @@
 package mysnapp.app.dei.com.mysnapp.login.models;
 
-import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -13,7 +12,6 @@ import mysnapp.app.dei.com.mysnapp.utils.MyPreferences;
 public class LoginForm extends BaseObservable {
     private LoginModel model = new LoginModel();
     private LoginErrorModel errors = new LoginErrorModel();
-    private MutableLiveData<LoginModel> buttonClick = new MutableLiveData<>();
 
     @Bindable
     public boolean isValid() {
@@ -74,10 +72,6 @@ public class LoginForm extends BaseObservable {
             return true;
         }
         return false;
-    }
-
-    public MutableLiveData<LoginModel> getLoginFields() {
-        return buttonClick;
     }
 
     public LoginModel getModel() {
