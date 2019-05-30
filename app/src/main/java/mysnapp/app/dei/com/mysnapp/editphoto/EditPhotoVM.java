@@ -20,8 +20,18 @@ public class EditPhotoVM extends ViewModel {
         return pagerAdapter;
     }
 
-    public void init (Image image, List list, FragmentActivity ctx) {
+    public void init(Image image, List list, FragmentActivity ctx) {
         this.image = image;
         pagerAdapter = new EditPagerAdapter(list, ctx.getSupportFragmentManager());
+        EditPhotoRepo.getInstance();
+    }
+
+
+    public void fetchAllBorders() {
+        EditPhotoRepo.getInstance().fetchAllBorders();
+    }
+
+    public void fetchAllGraphics() {
+        EditPhotoRepo.getInstance().fetchAllGraphics();
     }
 }

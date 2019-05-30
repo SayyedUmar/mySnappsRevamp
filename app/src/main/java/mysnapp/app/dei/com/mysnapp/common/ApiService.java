@@ -24,4 +24,12 @@ public interface ApiService<T> {
     @POST("ClaimQRCode")
     Observable<ResponseModel<Data>> claimQRCode(@Header("Content-Type") String type,
                                    @Body RequestModel model);
+
+    @POST("GetPartnerBorders_V1")
+    Observable<Response<ResponseBody>> fetchAllBorders(@Header("Content-Type") String type,
+                                                     @Body RequestModel model);
+
+    @POST("GetPartnerGraphics_V1")
+    Observable<Response<ResponseBody>> fetchAllGraphics(@Header("Content-Type") String type,
+                                                       @Body RequestModel model);
 }

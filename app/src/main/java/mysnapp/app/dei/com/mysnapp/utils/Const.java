@@ -2,6 +2,7 @@ package mysnapp.app.dei.com.mysnapp.utils;
 
 public class Const {
 
+    public static final String USER_MODEL = "USER_MODEL";
     private static final Server SERVER = Server.ATLANTIS_BETA;
 
     public static final String REMEMBER_ME = "REMEMBER_ME";

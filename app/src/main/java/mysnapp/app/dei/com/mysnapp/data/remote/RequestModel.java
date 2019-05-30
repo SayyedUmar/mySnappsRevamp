@@ -8,6 +8,7 @@ public class RequestModel<T> {
     private String ServicePassword = Const.ServicePassword;
     private String ServiceUserId = Const.ServiceUserId;
     private String GUID = Const.GUID;
+    public String PartnerUserId;
 
     public RequestModel(T data) {
         this.Data = data;

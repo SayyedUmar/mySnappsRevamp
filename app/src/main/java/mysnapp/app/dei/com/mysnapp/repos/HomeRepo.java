@@ -4,6 +4,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -102,6 +104,7 @@ public class HomeRepo {
                         claimCodeResponse.postValue(responseModel);
                         if (responseModel.Data != null && responseModel.Data.User != null) {
                             executor.execute(() -> {
+                                MyPreferences.setStringValue(MyApp.getAppContext(), Const.USER_MODEL, new Gson().toJson(responseModel.Data.User));
                                 userDao.insert(responseModel.Data.User);
                                 for (Substore store: responseModel.Data.SubStoreDetails) {
                                     substoreDao.insert(store);
