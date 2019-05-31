@@ -26,9 +26,8 @@ import mysnapp.app.dei.com.mysnapp.data.remote.RequestModel;
 import mysnapp.app.dei.com.mysnapp.data.remote.ResponseModel;
 import mysnapp.app.dei.com.mysnapp.model.Data;
 
-public class LoginRepo<T, R> {
+public class LoginRepo {
 
-    private static LoginRepo instance;
     private ApiService apiService;
     SubstoreDao substoreDao;
     UserDao userDao;
@@ -41,17 +40,7 @@ public class LoginRepo<T, R> {
     MutableLiveData<Throwable> loginError = new MutableLiveData<>();
     //SingleLive
 
-    public static LoginRepo getInstance() {
-        if (instance == null) {
-            synchronized (LoginRepo.class) {
-                if (instance == null)
-                    instance = new LoginRepo();
-            }
-        }
-        return instance;
-    }
-
-    LoginRepo () {
+    public LoginRepo() {
         executor = Executors.newSingleThreadExecutor();
         apiService = APIClient.getApiService();
         this.userDao = AppDatabase.getAppDatabase(MyApp.getAppContext()).userDao();

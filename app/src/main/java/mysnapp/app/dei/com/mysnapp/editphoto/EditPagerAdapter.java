@@ -26,8 +26,8 @@ public class EditPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int pos) {
-//        return list.get(pos);
-        return PageFragment.newInstance(null);
+        return list.get(pos);
+//        return PageFragment.newInstance(null);
     }
 
     @Override

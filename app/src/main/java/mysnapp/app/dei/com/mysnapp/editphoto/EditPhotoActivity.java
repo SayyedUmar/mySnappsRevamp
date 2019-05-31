@@ -8,9 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import mysnapp.app.dei.com.mysnapp.MyApp;
@@ -32,6 +29,8 @@ public class EditPhotoActivity extends SuperActivity {
     private EditPhotoVM viewModel;
 
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,13 +46,9 @@ public class EditPhotoActivity extends SuperActivity {
 
     private void setViewModel(Bundle savedInstanceState) {
         viewModel = ViewModelProviders.of(this).get(EditPhotoVM.class);
-        List<String> title = new ArrayList<>();
-        title.add("Border");
-        title.add("Sticker");
-        title.add("Contrast");
-        title.add("Text");
+
         if (savedInstanceState == null) {
-            viewModel.init(getIntent().getParcelableExtra("ITEM"),title, this);
+            viewModel.init(getIntent().getParcelableExtra("ITEM"), this);
         }
     }
 
@@ -64,7 +59,21 @@ public class EditPhotoActivity extends SuperActivity {
     }
 
     private void setEventListeners() {
+        viewModel.getLiveBorders().observe(this, val -> {
+            if (val != null && val.size() > 0) {
+                viewModel.updateBorders();
+            } else {
+                viewModel.fetchAllBorders();
+            }
+        });
 
+        viewModel.getLiveGraphics().observe(this, val -> {
+            if (val != null && val.size() > 0) {
+                viewModel.updateGraphics();
+            } else {
+                viewModel.fetchAllGraphics();
+            }
+        });
     }
 
     private void setObservers() {

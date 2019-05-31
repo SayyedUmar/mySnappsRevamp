@@ -1,6 +1,7 @@
 package mysnapp.app.dei.com.mysnapp.editphoto;
 
 
+import android.arch.lifecycle.LiveData;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,18 +13,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import mysnapp.app.dei.com.mysnapp.R;
+import mysnapp.app.dei.com.mysnapp.data.local.entity.Image;
 
 
 public class PageFragment extends Fragment {
 
     private RecyclerView recyclerView;
+    private String title;
+    private LiveData liveData;
 
-    public static<T> PageFragment newInstance(@NonNull final T image) {
-        //Bundle arguments = new Bundle();
-        //arguments.putString(PIC_URL, image.getImageUrl());
-
+    public static<T> PageFragment newInstance(String title, @NonNull Image image, LiveData<T> liveData) {
+        Bundle arguments = new Bundle();
         PageFragment fragment = new PageFragment();
-        //fragment.setArguments(arguments);
+        fragment.setArguments(arguments);
+        fragment.liveData = liveData;
+        fragment.title = title;
 
         return fragment;
     }
@@ -35,8 +39,17 @@ public class PageFragment extends Fragment {
 
         recyclerView = rootView.findViewById(R.id.recycler);
         setupRecyclerView();
+        setListeners();
 
         return rootView;
+    }
+
+    private void setListeners() {
+        liveData.observe(this, o -> {
+            if (title.equalsIgnoreCase("Border")) {
+
+            }
+        });
     }
 
 

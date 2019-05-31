@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.yanzhenjie.permission.AndPermission;
@@ -32,6 +33,7 @@ import dmax.dialog.SpotsDialog;
 import mysnapp.app.dei.com.mysnapp.R;
 import mysnapp.app.dei.com.mysnapp.common.SuperActivity;
 import mysnapp.app.dei.com.mysnapp.gallary.GalleryActivity;
+import mysnapp.app.dei.com.mysnapp.login.LoginActivityNew;
 import mysnapp.app.dei.com.mysnapp.utils.Logs;
 
 public class ClaimPhotosActivity  extends SuperActivity
@@ -54,9 +56,12 @@ public class ClaimPhotosActivity  extends SuperActivity
     Toolbar toolbar;
     @BindView(R.id.img_back)
     ImageView img_back;
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
 
     private ClaimPhotosViewModel viewModel;
     private AlertDialog progress;
+    private LinearLayout linLogout;
 
     /*@Override
     protected int getLayoutRes() {
@@ -69,7 +74,7 @@ public class ClaimPhotosActivity  extends SuperActivity
 
         setContentView(R.layout.activity_claim_photos);
         ButterKnife.bind(this);
-        setViewModel();
+        setViewModel(savedInstanceState);
 
         setSupportActionBar(toolbar);
         img_back.setVisibility(View.GONE);
@@ -79,17 +84,26 @@ public class ClaimPhotosActivity  extends SuperActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        linLogout =  navigationView.findViewById(R.id.linlayLogout);
 
         setEventListeners();
     }
 
-    private void setViewModel() {
+    private void setViewModel(Bundle savedInstanceState) {
         viewModel = ViewModelProviders.of(this).get(ClaimPhotosViewModel.class);
+        if (savedInstanceState == null)
+            viewModel.init();
     }
 
     private void setEventListeners() {
+        linLogout.setOnClickListener(view -> {
+            startActivity(new Intent(this, LoginActivityNew.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            );
+            finish();
+        });
+
         btnCloseDrawer.setOnClickListener(v -> {
             if (drawer.isDrawerOpen(GravityCompat.START)) {
                 drawer.closeDrawer(GravityCompat.START);

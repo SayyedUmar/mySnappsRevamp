@@ -8,10 +8,10 @@ import mysnapp.app.dei.com.mysnapp.repos.HomeRepo;
 
 public class ClaimPhotosViewModel extends ViewModel {
 
-    private HomeRepo repo = HomeRepo.getInstance();
+    private HomeRepo repo;
 
     void claimQRCode(String qrCode) {
-        repo.getInstance().claimQRCode(qrCode);
+        repo.claimQRCode(qrCode);
     }
 
     void onDestroy () {
@@ -25,4 +25,7 @@ public class ClaimPhotosViewModel extends ViewModel {
         return repo.getClaimCodeError();
     }
 
+    public void init() {
+        repo = new HomeRepo();
+    }
 }

@@ -1,8 +1,11 @@
 package mysnapp.app.dei.com.mysnapp.editphoto;
 
+import android.arch.lifecycle.LiveData;
 import android.util.Log;
 
+import java.util.List;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import io.reactivex.Observer;
@@ -14,31 +17,31 @@ import mysnapp.app.dei.com.mysnapp.MyApp;
 import mysnapp.app.dei.com.mysnapp.common.APIClient;
 import mysnapp.app.dei.com.mysnapp.common.ApiService;
 import mysnapp.app.dei.com.mysnapp.data.local.AppDatabase;
+import mysnapp.app.dei.com.mysnapp.data.local.entity.Border;
+import mysnapp.app.dei.com.mysnapp.data.local.entity.Graphic;
 import mysnapp.app.dei.com.mysnapp.data.local.entity.User;
 import mysnapp.app.dei.com.mysnapp.data.remote.RequestModel;
 import mysnapp.app.dei.com.mysnapp.data.remote.ResponseModel;
-import mysnapp.app.dei.com.mysnapp.model.Data;
-import mysnapp.app.dei.com.mysnapp.repos.HomeRepo;
 
 public class EditPhotoRepo {
 
-    private static EditPhotoRepo instance;
     private AppDatabase db;
     private ApiService apiService;
-    private Executor executor;
     private CompositeDisposable disposable;
     private User user;
+    private Executor executor;
+    private ExecutorService executorService;
+    private LiveData<List<Border>> liveBorders;
+    private LiveData<List<Graphic>> liveGraphics;
 
     private static final String TAG = "EditPhotoRepo";
 
-    public static EditPhotoRepo getInstance() {
-        if (instance == null) {
-            synchronized (HomeRepo.class) {
-                if (instance == null)
-                    instance = new EditPhotoRepo();
-            }
-        }
-        return instance;
+    public LiveData<List<Border>> getLiveBorders() {
+        return liveBorders;
+    }
+
+    public LiveData<List<Graphic>> getLiveGraphics() {
+        return liveGraphics;
     }
 
     public EditPhotoRepo () {
@@ -46,15 +49,13 @@ public class EditPhotoRepo {
         executor = Executors.newSingleThreadExecutor();
         apiService = APIClient.getApiService();
         db = AppDatabase.getAppDatabase(MyApp.getAppContext());
-
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                user = db.userDao().getSimpleUser();
-                fetchAllBorders();
-                fetchAllGraphics();
-            }
+//        executorService = Executor.ex
+        executor.execute(() -> {
+            user = db.userDao().getSimpleUser();
+            liveBorders = db.borderDao().getAllBorders();
+            liveGraphics = db.graphicsDao().getAllGraphics();
         });
+
     }
 
     public void fetchAllBorders() {
@@ -63,13 +64,13 @@ public class EditPhotoRepo {
         apiService.fetchAllBorders("application/json", requestModel)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new Observer<ResponseModel<Data>>() {
+                .subscribeWith(new Observer<ResponseModel<List<Border>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         disposable.add(d);
                     }
                     @Override
-                    public void onNext(ResponseModel<Data> dataResponseModel) {
+                    public void onNext(ResponseModel<List<Border>> res) {
                         Log.e(TAG, "onNext: ");
                     }
                     @Override
@@ -89,13 +90,13 @@ public class EditPhotoRepo {
         apiService.fetchAllGraphics("application/json", requestModel)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new Observer<ResponseModel<Data>>() {
+                .subscribeWith(new Observer<ResponseModel<List<Graphic>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         disposable.add(d);
                     }
                     @Override
-                    public void onNext(ResponseModel<Data> dataResponseModel) {
+                    public void onNext(ResponseModel<List<Graphic>> res) {
                         Log.e(TAG, "onNext: ");
                     }
                     @Override

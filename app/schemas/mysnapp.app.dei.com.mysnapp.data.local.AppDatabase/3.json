@@ -1,0 +1,359 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "f67d37b859f0523ca26feb51ba14bf84",
+    "entities": [
+      {
+        "tableName": "User",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `FirstName` TEXT, `LastName` TEXT, `EmailId` TEXT, `UserName` TEXT, `PartnerUserID` TEXT, `Nationality` TEXT, `Gender` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "FirstName",
+            "columnName": "FirstName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "LastName",
+            "columnName": "LastName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "EmailId",
+            "columnName": "EmailId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "UserName",
+            "columnName": "UserName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "PartnerUserID",
+            "columnName": "PartnerUserID",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Nationality",
+            "columnName": "Nationality",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Gender",
+            "columnName": "Gender",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "substores",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `SubStoreId` TEXT, `SubStoreDisplayName` TEXT, `LogicalSiteName` TEXT, `LogicalSiteID` TEXT, `IdentificationCode` TEXT, `ClaimDate` INTEGER, `ExpiryDate` INTEGER, `SubStoreHeaderImage` TEXT, `SubStoreBanner` TEXT, `SubStoreThumb` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SubStoreId",
+            "columnName": "SubStoreId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "SubStoreDisplayName",
+            "columnName": "SubStoreDisplayName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "LogicalSiteName",
+            "columnName": "LogicalSiteName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "LogicalSiteID",
+            "columnName": "LogicalSiteID",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "IdentificationCode",
+            "columnName": "IdentificationCode",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ClaimDate",
+            "columnName": "ClaimDate",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ExpiryDate",
+            "columnName": "ExpiryDate",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "SubStoreHeaderImage",
+            "columnName": "SubStoreHeaderImage",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "SubStoreBanner",
+            "columnName": "SubStoreBanner",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "SubStoreThumb",
+            "columnName": "SubStoreThumb",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "images_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `substoreID` TEXT, `ImageId` TEXT, `ImageLocationID` TEXT, `ImageName` TEXT, `ImageUrl` TEXT, `ImageThumbnailUrl` TEXT, `WatermarkImagePath` TEXT, `VideoWatermarkImagePath` TEXT, `MediaType` INTEGER NOT NULL, `IsPaidImage` INTEGER NOT NULL, `IsPanoramic` INTEGER NOT NULL, `IsStockShot` INTEGER NOT NULL, `CaptureDate` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "substoreID",
+            "columnName": "substoreID",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ImageId",
+            "columnName": "ImageId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ImageLocationID",
+            "columnName": "ImageLocationID",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ImageName",
+            "columnName": "ImageName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ImageUrl",
+            "columnName": "ImageUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ImageThumbnailUrl",
+            "columnName": "ImageThumbnailUrl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "WatermarkImagePath",
+            "columnName": "WatermarkImagePath",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "VideoWatermarkImagePath",
+            "columnName": "VideoWatermarkImagePath",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "MediaType",
+            "columnName": "MediaType",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "IsPaidImage",
+            "columnName": "IsPaidImage",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "IsPanoramic",
+            "columnName": "IsPanoramic",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "IsStockShot",
+            "columnName": "IsStockShot",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "CaptureDate",
+            "columnName": "CaptureDate",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Border",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`BorderID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `SiteID` TEXT, `VenueID` TEXT, `BorderName` TEXT, `BorderFilePath` TEXT, `BorderThumbnailFilePath` TEXT, `LocationIDs` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "BorderID",
+            "columnName": "BorderID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SiteID",
+            "columnName": "SiteID",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "VenueID",
+            "columnName": "VenueID",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "BorderName",
+            "columnName": "BorderName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "BorderFilePath",
+            "columnName": "BorderFilePath",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "BorderThumbnailFilePath",
+            "columnName": "BorderThumbnailFilePath",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "LocationIDs",
+            "columnName": "LocationIDs",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "BorderID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Graphic",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`GraphicID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `SiteID` TEXT, `VenueID` TEXT, `GraphicName` TEXT, `GraphicFilePath` TEXT, `LocationIDs` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "GraphicID",
+            "columnName": "GraphicID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "SiteID",
+            "columnName": "SiteID",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "VenueID",
+            "columnName": "VenueID",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "GraphicName",
+            "columnName": "GraphicName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "GraphicFilePath",
+            "columnName": "GraphicFilePath",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "LocationIDs",
+            "columnName": "LocationIDs",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "GraphicID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"f67d37b859f0523ca26feb51ba14bf84\")"
+    ]
+  }
+}

@@ -20,14 +20,10 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import mysnapp.app.dei.com.mysnapp.MyApp;
 import mysnapp.app.dei.com.mysnapp.R;
 import mysnapp.app.dei.com.mysnapp.common.SuperActivity;
-import mysnapp.app.dei.com.mysnapp.data.local.entity.Image;
 import mysnapp.app.dei.com.mysnapp.editphoto.EditPhotoActivity;
 import mysnapp.app.dei.com.mysnapp.preview.PreviewActivity;
 import mysnapp.app.dei.com.mysnapp.utils.Logs;

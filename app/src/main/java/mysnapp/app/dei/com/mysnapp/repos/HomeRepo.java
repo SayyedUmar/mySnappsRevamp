@@ -32,18 +32,7 @@ import mysnapp.app.dei.com.mysnapp.utils.MyPreferences;
 
 public class HomeRepo {
 
-    private static HomeRepo instance;
     private ApiService apiService;
-
-    public static HomeRepo getInstance() {
-        if (instance == null) {
-            synchronized (HomeRepo.class) {
-                if (instance == null)
-                    instance = new HomeRepo();
-            }
-        }
-        return instance;
-    }
 
     private SubstoreDao substoreDao;
     private UserDao userDao;
@@ -54,7 +43,7 @@ public class HomeRepo {
     MutableLiveData<ResponseModel> claimCodeResponse = new MutableLiveData<>();
     MutableLiveData<Throwable> claimCodeError = new MutableLiveData<>();
 
-    HomeRepo () {
+    public HomeRepo() {
         disposable = new CompositeDisposable();
         executor = Executors.newSingleThreadExecutor();
         apiService = APIClient.getApiService();

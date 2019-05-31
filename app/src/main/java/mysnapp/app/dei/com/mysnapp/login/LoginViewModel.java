@@ -29,7 +29,7 @@ public class LoginViewModel extends ViewModel {
     private View.OnFocusChangeListener onFocusEmail;
     private View.OnFocusChangeListener onFocusPassword;
     public ObservableBoolean showLoader = new ObservableBoolean(false);
-    private LoginRepo repo = LoginRepo.getInstance();
+    private LoginRepo repo;
 
     @VisibleForTesting
     void init(Context context) {
@@ -39,6 +39,8 @@ public class LoginViewModel extends ViewModel {
         Cash cash = battleComponent.getCash();
         Soldiers soldiers = battleComponent.getSoldiers();
 
+
+        repo = new LoginRepo();
 
         login = new LoginForm();
         LoginModel model = login.getModel();

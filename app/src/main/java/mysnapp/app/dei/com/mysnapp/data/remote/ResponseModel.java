@@ -1,8 +1,6 @@
 package mysnapp.app.dei.com.mysnapp.data.remote;
 
 
-import mysnapp.app.dei.com.mysnapp.model.Data;
-
 /**
  * The model class which holds the top popular articles data
  * Author: Lajesh D
@@ -15,5 +13,17 @@ public class ResponseModel<T> {
     public String ResponseCode;
     public String ResponseMessage;
     public T Data;
+
+
+//    public static class BorderStickerDataArr {
+//        private String BorderID;
+//        private String SiteID;
+//        private String VenueID;
+//        private String BorderFilePath;
+//        private String BorderThumbnailFilePath;
+//        private String BorderName;
+//        private String LocationIDs;
+//
+//    }
 }
 

@@ -31,8 +31,10 @@ public class GalleryActivityVM extends ViewModel {
 
     private static final String TAG = "GalleryActivityVM";
     private ImageLoader imageLoader;
+    private HomeRepo repo;
 
     void init(Context context) {
+        repo = new HomeRepo();
         imageLoader = MyApp.getImageLoader();
         if (!imageLoader.isInited())
             imageLoader.init(MyApp.getImageConfig(context));
@@ -40,7 +42,7 @@ public class GalleryActivityVM extends ViewModel {
 
 
     LiveData<List<Image>> getAllImages() {
-        return HomeRepo.getInstance().getAllImages();
+        return repo.getAllImages();
     }
 
     GenericAdapter getAdapter(List<Image> list) {

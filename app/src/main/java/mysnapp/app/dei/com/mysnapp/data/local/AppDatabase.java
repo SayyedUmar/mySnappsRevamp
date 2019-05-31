@@ -9,9 +9,13 @@ import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
 
 import io.reactivex.annotations.NonNull;
+import mysnapp.app.dei.com.mysnapp.data.local.dao.BorderDao;
+import mysnapp.app.dei.com.mysnapp.data.local.dao.GraphicsDao;
 import mysnapp.app.dei.com.mysnapp.data.local.dao.ImageDao;
 import mysnapp.app.dei.com.mysnapp.data.local.dao.SubstoreDao;
 import mysnapp.app.dei.com.mysnapp.data.local.dao.UserDao;
+import mysnapp.app.dei.com.mysnapp.data.local.entity.Border;
+import mysnapp.app.dei.com.mysnapp.data.local.entity.Graphic;
 import mysnapp.app.dei.com.mysnapp.data.local.entity.Image;
 import mysnapp.app.dei.com.mysnapp.data.local.entity.Substore;
 import mysnapp.app.dei.com.mysnapp.data.local.entity.User;
@@ -19,7 +23,7 @@ import mysnapp.app.dei.com.mysnapp.utils.Const;
 import mysnapp.app.dei.com.mysnapp.utils.DateConverter;
 
 @TypeConverters({DateConverter.class})
-@Database(entities = {User.class, Substore.class, Image.class}, version = 2, exportSchema = true)
+@Database(entities = {User.class, Substore.class, Image.class, Border.class, Graphic.class}, version = 3, exportSchema = true)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
@@ -27,6 +31,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDao userDao();
     public abstract SubstoreDao substoreDao();
     public abstract ImageDao imageDao();
+    public abstract BorderDao borderDao();
+    public abstract GraphicsDao graphicsDao();
 
     private static final Object sLock = new Object();
 
@@ -46,7 +52,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    public static AppDatabase getInMemoreyDatabase(Context context){
+    public static AppDatabase getInMemoryDatabase(Context context){
         if (INSTANCE == null) {
             synchronized (sLock) {
                 if (INSTANCE == null) {
@@ -66,8 +72,7 @@ public abstract class AppDatabase extends RoomDatabase {
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            // Since we didn't alter the table, there's nothing else to do here.
-            //database.execSQL("ALTER TABLE users " + " ADD COLUMN last_update INTEGER");
+
         }
     };
 
