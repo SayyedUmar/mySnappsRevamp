@@ -2,6 +2,7 @@ package mysnapp.app.dei.com.mysnapp.editphoto;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
+import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
@@ -94,5 +95,9 @@ public class EditPhotoVM extends ViewModel {
 
     public void updateGraphics() {
 
+    }
+
+    public void uploadImageBitmap(Bitmap bitmap) {
+        repo.uploadImageBitmap(bitmap);
     }
 }

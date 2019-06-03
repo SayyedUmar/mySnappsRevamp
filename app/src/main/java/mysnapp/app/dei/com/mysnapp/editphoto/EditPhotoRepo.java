@@ -1,8 +1,11 @@
 package mysnapp.app.dei.com.mysnapp.editphoto;
 
 import android.arch.lifecycle.LiveData;
+import android.graphics.Bitmap;
 import android.util.Log;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
@@ -119,6 +122,16 @@ public class EditPhotoRepo {
                         Log.e(TAG, "onComplete: ");
                     }
                 });
+    }
+
+    public void uploadImageBitmap(Bitmap bitmap) {
+        File file = null;
+        FileOutputStream out = null;
+        File t_file = null;
+        FileOutputStream t_out = null;
+
+       /* file = FileUtils.getDownloadFilePath(url, ImageBeanContainer.getImageBeanContainer().getImageDetailBean(alumId)
+                .get(Const.POSITION).getImageId(), BorderAndFontActivity.this);*/
     }
 
     private static class ReqData {

@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -44,6 +45,8 @@ public class EditPhotoActivity extends SuperActivity {
     ImageView img_back;
     @BindView(R.id.tvSave)
     TextView tvSave;
+    @BindView(R.id.frameContainer)
+    FrameLayout frameContainer;
 
     private EditPhotoVM viewModel;
 
@@ -98,7 +101,15 @@ public class EditPhotoActivity extends SuperActivity {
         });
 
         tvSave.setOnClickListener(view -> {
-            gpuImageView.setImage(MyApp.getImageLoader().getDiskCache().get(viewModel.getModel().getImageUrl()));
+            //gpuImageView.setImage(MyApp.getImageLoader().getDiskCache().get(viewModel.getModel().getImageUrl()));
+            frameContainer.setDrawingCacheEnabled(true);
+            frameContainer.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+            Bitmap bitmap = Bitmap.createBitmap(frameContainer.getDrawingCache());
+            frameContainer.setDrawingCacheEnabled(false);
+            //if () type == collage
+            saveBitmapLocally(bitmap); // save it locally
+            //else upload in on server
+            viewModel.uploadImageBitmap(bitmap);
         });
 
         viewModel.getBorderLiveData().observe(this, border -> {
@@ -134,6 +145,10 @@ public class EditPhotoActivity extends SuperActivity {
             linlay_back.setBackground(framedrawable);
 
         });
+    }
+
+    private void saveBitmapLocally(Bitmap bitmap) {
+
     }
 
     private void setObservers() {

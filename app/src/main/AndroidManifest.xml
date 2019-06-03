@@ -47,22 +47,27 @@
         </activity>
 
         <activity android:name=".home.ClaimPhotosActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".login.LoginActivityNew"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
 
 
         <activity android:name=".gallary.GalleryActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".photodetail.PhotoDetailActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".preview.PreviewActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".editphoto.EditPhotoActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity

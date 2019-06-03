@@ -22,7 +22,7 @@
         android:paddingRight="8dp"
         />
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/rellay2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,28 +33,34 @@
         android:layout_above="@+id/rellay1"
         android:layout_below="@+id/tvHeading"
         android:layout_marginTop="15dp"
-        android:background="@drawable/bg_rect_round_gray"
-        android:padding="10dp"
+        android:background="@drawable/bg_rect_round_gray_1"
         >
 
-
-        <mysnapp.app.dei.com.mysnapp.thirdparty.AspectRatioImageView
-            android:id="@+id/imageView"
+        <FrameLayout
+            android:id="@+id/frameContainer"
+            android:layout_margin="15dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:layout_gravity="center"
-            />
+            android:layout_height="match_parent">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:id="@+id/linlay_back"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            />
+            <mysnapp.app.dei.com.mysnapp.thirdparty.AspectRatioImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:layout_gravity="center"
+                />
 
-    </FrameLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/linlay_back"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                />
+
+        </FrameLayout>
+
+    </LinearLayout>
 
 
     <jp.co.cyberagent.android.gpuimage.GPUImageView
@@ -76,7 +82,7 @@
 
     <TextView
         android:id="@+id/tvSave"
-        android:layout_below="@+id/imageView"
+        android:layout_below="@+id/rellay2"
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_marginTop="-50dp"
