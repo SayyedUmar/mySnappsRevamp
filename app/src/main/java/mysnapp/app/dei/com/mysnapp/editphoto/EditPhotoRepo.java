@@ -49,11 +49,10 @@ public class EditPhotoRepo {
         executor = Executors.newSingleThreadExecutor();
         apiService = APIClient.getApiService();
         db = AppDatabase.getAppDatabase(MyApp.getAppContext());
-//        executorService = Executor.ex
+        liveBorders = db.borderDao().getAllBorders();
+        liveGraphics = db.graphicsDao().getAllGraphics();
         executor.execute(() -> {
             user = db.userDao().getSimpleUser();
-            liveBorders = db.borderDao().getAllBorders();
-            liveGraphics = db.graphicsDao().getAllGraphics();
         });
 
     }
@@ -72,6 +71,12 @@ public class EditPhotoRepo {
                     @Override
                     public void onNext(ResponseModel<List<Border>> res) {
                         Log.e(TAG, "onNext: ");
+                        executor.execute(() -> {
+                            for (Border b: res.Data) {
+                                db.borderDao().insert(b);
+                            }
+                            liveBorders = db.borderDao().getAllBorders();
+                        });
                     }
                     @Override
                     public void onError(Throwable e) {
@@ -98,6 +103,12 @@ public class EditPhotoRepo {
                     @Override
                     public void onNext(ResponseModel<List<Graphic>> res) {
                         Log.e(TAG, "onNext: ");
+                        executor.execute(() -> {
+                            for (Graphic b: res.Data) {
+                                db.graphicsDao().insert(b);
+                            }
+                            liveGraphics = db.graphicsDao().getAllGraphics();
+                        });
                     }
                     @Override
                     public void onError(Throwable e) {

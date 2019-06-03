@@ -13,6 +13,7 @@ import java.util.TreeMap;
 import mysnapp.app.dei.com.mysnapp.data.local.entity.Border;
 import mysnapp.app.dei.com.mysnapp.data.local.entity.Graphic;
 import mysnapp.app.dei.com.mysnapp.data.local.entity.Image;
+import mysnapp.app.dei.com.mysnapp.utils.SingleLiveData;
 
 public class EditPhotoVM extends ViewModel {
 
@@ -22,27 +23,44 @@ public class EditPhotoVM extends ViewModel {
     private List<String> titles = new ArrayList<>();
     private Map<Integer, Fragment> fragmentMap = new TreeMap();
     private List<Fragment> fragments = new ArrayList<>();
+    private SingleLiveData<Border> borderLiveData;
+    private SingleLiveData<Graphic> graphicsLiveData;
+
+    public SingleLiveData<Border> getBorderLiveData() {
+        return borderLiveData;
+    }
+
+    public SingleLiveData<Graphic> getGraphicsLiveData() {
+        return graphicsLiveData;
+    }
 
     public void init(Image image, FragmentActivity activity) {
-        this.image = image;
         repo = new EditPhotoRepo();
+        this.image = image;
         titles.add("Border");
         titles.add("Sticker");
         titles.add("Contrast");
         titles.add("Text");
 
-        BorderFragment frag = new BorderFragment();
-        frag.liveData = repo.getLiveBorders();
+        BorderFragment borderFragment = new BorderFragment();
+        borderFragment.liveData = repo.getLiveBorders();
+        GraphicsFragment graphicsFragment = new GraphicsFragment();
+        graphicsFragment.liveData = repo.getLiveGraphics();
 //        fragmentMap.put(1, frag);
 //        fragmentMap.put(2, PageFragment.newInstance(titles.get(0), image, repo.getLiveBorders()));
 //        fragmentMap.put(3, PageFragment.newInstance(titles.get(1), image, repo.getLiveGraphics()));
 //        fragmentMap.put(4, new PageFragment());
-        fragments.add(frag);
+        fragments.add(borderFragment);
+        fragments.add(graphicsFragment);
         fragments.add(PageFragment.newInstance(titles.get(0), image, repo.getLiveBorders()));
-        fragments.add(PageFragment.newInstance(titles.get(1), image, repo.getLiveGraphics()));
         fragments.add(new PageFragment());
 
         pagerAdapter = new EditPagerAdapter(fragments, titles, activity.getSupportFragmentManager());
+
+        borderLiveData = borderFragment.singleLiveData;
+        graphicsLiveData = graphicsFragment.singleLiveData;
+//        borderFragment.singleLiveData.observe(activity, o ->  borderLiveData.postValue(o));
+//        graphicsFragment.singleLiveData.observe(activity, o ->  graphicsLiveData.postValue(o));
     }
 
     public Image getModel() {

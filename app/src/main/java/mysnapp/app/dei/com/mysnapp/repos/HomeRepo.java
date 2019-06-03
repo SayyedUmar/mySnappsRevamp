@@ -43,6 +43,7 @@ public class HomeRepo {
     MutableLiveData<ResponseModel> claimCodeResponse = new MutableLiveData<>();
     MutableLiveData<Throwable> claimCodeError = new MutableLiveData<>();
 
+
     public HomeRepo() {
         disposable = new CompositeDisposable();
         executor = Executors.newSingleThreadExecutor();
@@ -51,7 +52,6 @@ public class HomeRepo {
         this.imageDao = AppDatabase.getAppDatabase(MyApp.getAppContext()).imageDao();
         this.substoreDao = AppDatabase.getAppDatabase(MyApp.getAppContext()).substoreDao();
     }
-
 
     public LiveData<ResponseModel> getClaimCodeResponse() {
         return claimCodeResponse;

@@ -45,11 +45,11 @@ public class PageFragment extends Fragment {
     }
 
     private void setListeners() {
-        liveData.observe(this, o -> {
+       /* liveData.observe(this, o -> {
             if (title.equalsIgnoreCase("Border")) {
 
             }
-        });
+        });*/
     }
 
 

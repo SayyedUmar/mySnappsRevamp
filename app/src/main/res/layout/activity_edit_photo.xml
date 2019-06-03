@@ -22,14 +22,69 @@
         android:paddingRight="8dp"
         />
 
-    <ImageView
-        android:id="@+id/imageView"
+    <FrameLayout
+        android:id="@+id/rellay2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
 
         android:layout_above="@+id/rellay1"
         android:layout_below="@+id/tvHeading"
         android:layout_marginTop="15dp"
+        android:background="@drawable/bg_rect_round_gray"
+        android:padding="10dp"
+        >
+
+
+        <mysnapp.app.dei.com.mysnapp.thirdparty.AspectRatioImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center"
+            />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/linlay_back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            />
+
+    </FrameLayout>
+
+
+    <jp.co.cyberagent.android.gpuimage.GPUImageView
+        android:visibility="gone"
+        android:id="@+id/gpuImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+
+        android:layout_above="@+id/rellay1"
+        android:layout_below="@+id/tvHeading"
+        android:layout_marginTop="15dp"
+        android:padding="20dp"
+        app:gpuimage_show_loading="false"
+        app:gpuimage_surface_type="texture_view"
+        />
+
+    <TextView
+        android:id="@+id/tvSave"
+        android:layout_below="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="-50dp"
+        android:layout_centerHorizontal="true"
+        android:text="Save"
+        android:textSize="18sp"
+        android:background="@drawable/bg_rect_round_gray"
+        android:gravity="center"
         />
 
 
@@ -50,7 +105,7 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_alignParentBottom="true"
             app:tabGravity="fill"
             app:tabMode="fixed"
@@ -59,7 +114,6 @@
             app:tabTextColor="@color/white"
             app:tabIconTint="@color/white"
             />
-
 
     </RelativeLayout>
 

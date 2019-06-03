@@ -20,17 +20,17 @@ import java.util.List;
 
 import mysnapp.app.dei.com.mysnapp.MyApp;
 import mysnapp.app.dei.com.mysnapp.R;
-import mysnapp.app.dei.com.mysnapp.data.local.entity.Border;
+import mysnapp.app.dei.com.mysnapp.data.local.entity.Graphic;
 import mysnapp.app.dei.com.mysnapp.utils.SingleLiveData;
 import mysnapp.app.dei.com.mysnapp.view.adapters.GenericRecyclerAdapter;
 
-public class BorderFragment extends Fragment {
+public class GraphicsFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    public LiveData<List<Border>> liveData;
-    private List<Border> borders = new ArrayList<>();
+    public LiveData<List<Graphic>> liveData;
+    private List<Graphic> graphics = new ArrayList<>();
     private static ImageLoader imageLoader = MyApp.getImageLoader();
-    public SingleLiveData<Border> singleLiveData = new SingleLiveData();
+    public SingleLiveData<Graphic> singleLiveData = new SingleLiveData();
     private ProgressBar progress;
 
     @Nullable
@@ -52,8 +52,8 @@ public class BorderFragment extends Fragment {
         liveData.observe(this, val -> {
             if (val != null && val.size() > 0) {
                 progress.setVisibility(View.GONE);
-                borders.clear();
-                borders.addAll(val);
+                graphics.clear();
+                graphics.addAll(val);
                 recyclerView.getAdapter().notifyDataSetChanged();
             }
         });
@@ -62,7 +62,7 @@ public class BorderFragment extends Fragment {
     private void setupRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(new GenericRecyclerAdapter<Border, Holder>(borders) {
+        recyclerView.setAdapter(new GenericRecyclerAdapter<Graphic, Holder>(graphics) {
             @NonNull
             @Override
             public Holder onCreateViewHolder(@NonNull ViewGroup parent, int pos) {
@@ -73,8 +73,8 @@ public class BorderFragment extends Fragment {
             @Override
             public void onBindViewHolder(@NonNull Holder holder, int pos) {
                 pos = holder.getAdapterPosition();
-                Border border = borders.get(pos);
-                imageLoader.displayImage(border.getBorderFilePath().replace(" ", ""), holder.imageView, MyApp.getDisplayImageOptions());
+                Graphic border = graphics.get(pos);
+                imageLoader.displayImage(border.getGraphicFilePath().replace(" ", ""), holder.imageView, MyApp.getDisplayImageOptions());
                 holder.imageView.setOnClickListener(view -> {
                     singleLiveData.postValue(border);
                 });
