@@ -9,9 +9,15 @@ import mysnapp.app.dei.com.mysnapp.data.local.entity.Graphic;
 import mysnapp.app.dei.com.mysnapp.data.remote.RequestModel;
 import mysnapp.app.dei.com.mysnapp.data.remote.ResponseModel;
 import mysnapp.app.dei.com.mysnapp.model.Data;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 public interface ApiService<T> {
 
@@ -34,4 +40,16 @@ public interface ApiService<T> {
     @POST("GetPartnerGraphics_V1")
     Observable<ResponseModel<List<Graphic>>> fetchAllGraphics(@Header("Content-Type") String type,
                                                               @Body RequestModel model);
+
+    @Multipart
+    @POST("UploadFile")
+    Call<ResponseBody> uploadFile(@Header("Content-Type") String type,
+                                  @Part MultipartBody.Part file,
+                                  @Part("ImageId") RequestBody description
+    );
+
+    @POST("UploadFile")
+    Call<ResponseBody> uploadFile1(@Header("Content-Type") String type,
+                                   @Body RequestModel model
+    );
 }

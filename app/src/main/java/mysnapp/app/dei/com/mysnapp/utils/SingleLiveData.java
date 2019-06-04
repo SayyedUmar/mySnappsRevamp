@@ -5,7 +5,6 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.support.annotation.MainThread;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -13,6 +12,13 @@ public class SingleLiveData<T> extends MutableLiveData<T> {
 
     private AtomicBoolean mPending = new AtomicBoolean(false);
     private static final String TAG = "SingleLiveData";
+
+    public SingleLiveData(T t) {
+        super.setValue(t);
+    }
+    public SingleLiveData() {
+        super();
+    }
 
     @MainThread
     @Override

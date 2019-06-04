@@ -2,10 +2,14 @@ package mysnapp.app.dei.com.mysnapp.editphoto;
 
 import android.arch.lifecycle.LiveData;
 import android.graphics.Bitmap;
+import android.util.Base64;
 import android.util.Log;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import com.nostra13.universalimageloader.utils.DiskCacheUtils;
+
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
@@ -22,9 +26,17 @@ import mysnapp.app.dei.com.mysnapp.common.ApiService;
 import mysnapp.app.dei.com.mysnapp.data.local.AppDatabase;
 import mysnapp.app.dei.com.mysnapp.data.local.entity.Border;
 import mysnapp.app.dei.com.mysnapp.data.local.entity.Graphic;
+import mysnapp.app.dei.com.mysnapp.data.local.entity.Image;
 import mysnapp.app.dei.com.mysnapp.data.local.entity.User;
 import mysnapp.app.dei.com.mysnapp.data.remote.RequestModel;
 import mysnapp.app.dei.com.mysnapp.data.remote.ResponseModel;
+import mysnapp.app.dei.com.mysnapp.utils.Const;
+import mysnapp.app.dei.com.mysnapp.utils.Logs;
+import mysnapp.app.dei.com.mysnapp.utils.SingleLiveData;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class EditPhotoRepo {
 
@@ -36,6 +48,7 @@ public class EditPhotoRepo {
     private ExecutorService executorService;
     private LiveData<List<Border>> liveBorders;
     private LiveData<List<Graphic>> liveGraphics;
+    public SingleLiveData<Boolean> imageObserver = new SingleLiveData<>(true);
 
     private static final String TAG = "EditPhotoRepo";
 
@@ -124,17 +137,48 @@ public class EditPhotoRepo {
                 });
     }
 
-    public void uploadImageBitmap(Bitmap bitmap) {
-        File file = null;
-        FileOutputStream out = null;
-        File t_file = null;
-        FileOutputStream t_out = null;
+    public void uploadImageBitmap(Bitmap bitmap, Image image) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
 
-       /* file = FileUtils.getDownloadFilePath(url, ImageBeanContainer.getImageBeanContainer().getImageDetailBean(alumId)
-                .get(Const.POSITION).getImageId(), BorderAndFontActivity.this);*/
+        ReqData req = new ReqData();
+        req.ImageId = image.getImageId();
+        req.IsStockShot = image.getIsStockShot();
+        req.ImageData = Base64.encodeToString(bytes.toByteArray(), Base64.DEFAULT);
+
+        Call<ResponseBody> call = APIClient.getApiService(Const.ROOT_URL_FILE_UPLOAD).uploadFile1("application/json", new RequestModel(req));
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    if(response.isSuccessful()) {//{"PartnerUserID":0,"ResponseCode":"000","ResponseMessage":"Action completed successfully.","Data":null}
+                        JSONObject res = new JSONObject(response.body().string());
+                        if (res.getString("ResponseCode").equals("000")) {
+                            Logs.shortToast(MyApp.getAppContext(), "Image uploaded successfully.");
+                            DiskCacheUtils.removeFromCache(image.getImageUrl(), MyApp.getImageLoader().getDiskCache());
+                            DiskCacheUtils.removeFromCache(image.getImageThumbnailUrl(), MyApp.getImageLoader().getDiskCache());
+                            MyApp.getImageLoader().getDiskCache().save(image.getImageThumbnailUrl(), Bitmap.createBitmap(bitmap));
+                            MyApp.getImageLoader().getDiskCache().save(image.getImageUrl(), bitmap);
+                            imageObserver.setValue(true);
+                        }
+                    } else {
+                        JSONObject res = new JSONObject(response.errorBody().string());
+                        Logs.shortToast(MyApp.getAppContext(), res.getString("ResponseMessage"));
+                    }
+                }catch(Exception e) { e.printStackTrace(); }
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Logs.shortToast(MyApp.getAppContext(), t.getMessage());
+            }
+        });
     }
+
 
     private static class ReqData {
-
+        String ImageId;
+        int IsStockShot;
+        String ImageData;
     }
+
 }

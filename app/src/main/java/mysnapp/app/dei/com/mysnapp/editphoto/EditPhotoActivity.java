@@ -1,5 +1,6 @@
 package mysnapp.app.dei.com.mysnapp.editphoto;
 
+import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -25,6 +26,7 @@ import jp.co.cyberagent.android.gpuimage.GPUImageView;
 import mysnapp.app.dei.com.mysnapp.MyApp;
 import mysnapp.app.dei.com.mysnapp.R;
 import mysnapp.app.dei.com.mysnapp.common.SuperActivity;
+import mysnapp.app.dei.com.mysnapp.utils.textrotation.StickerView;
 
 public class EditPhotoActivity extends SuperActivity {
 
@@ -49,8 +51,9 @@ public class EditPhotoActivity extends SuperActivity {
     FrameLayout frameContainer;
 
     private EditPhotoVM viewModel;
-
-
+    private Dialog dialog;
+    private View stickerRoot;
+    private StickerView stickerView;
 
 
     @Override
@@ -75,6 +78,7 @@ public class EditPhotoActivity extends SuperActivity {
     }
 
     private void initialize() {
+        dialog = new Dialog(this);
         //((TouchImageView)imageView).setMaxZoom(5);
         MyApp.getImageLoader().displayImage(viewModel.getModel().getImageUrl(), imageView);
         viewPager.setAdapter(viewModel.getPagerAdapter());
@@ -101,6 +105,12 @@ public class EditPhotoActivity extends SuperActivity {
         });
 
         tvSave.setOnClickListener(view -> {
+            dialog.setContentView(R.layout.dialog_loader);
+            //dialog.setCancelable(true);
+            dialog.show();
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+
             //gpuImageView.setImage(MyApp.getImageLoader().getDiskCache().get(viewModel.getModel().getImageUrl()));
             frameContainer.setDrawingCacheEnabled(true);
             frameContainer.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
@@ -145,6 +155,30 @@ public class EditPhotoActivity extends SuperActivity {
             linlay_back.setBackground(framedrawable);
 
         });
+
+        viewModel.getGraphicsLiveData().observe(this, graphic -> {
+
+            if (stickerRoot == null) {
+                stickerRoot = getLayoutInflater().inflate(R.layout.sticker_editing, null);
+                stickerView = stickerRoot.findViewById(R.id.sticker_singleFingerView);
+                frameContainer.addView(stickerRoot);
+            }
+            FrameLayout.LayoutParams sparms =  sparms = new FrameLayout.LayoutParams(imageView.getWidth(), imageView.getHeight());
+            sparms.gravity = Gravity.CENTER;
+            frameContainer.setLayoutParams(sparms);
+
+            ImageView btnDelete = stickerView.getDeleteButton();
+            final ImageView stickImageView = stickerView.getImageView();
+
+            btnDelete.setOnClickListener(view -> {});
+
+        });
+
+        viewModel.imageObserver.observe(this, aBoolean -> {
+            if (aBoolean && dialog.isShowing()) {
+                dialog.dismiss();
+            }
+        });
     }
 
     private void saveBitmapLocally(Bitmap bitmap) {
@@ -155,4 +189,10 @@ public class EditPhotoActivity extends SuperActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (dialog.isShowing())
+            dialog.dismiss();
+    }
 }

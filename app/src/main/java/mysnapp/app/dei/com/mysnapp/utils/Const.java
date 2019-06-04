@@ -16,6 +16,7 @@ public class Const {
 
 
     public static String ROOT_URL = "";
+    public static String ROOT_URL_FILE_UPLOAD = "";
 
     static {
         //setting server Urls
@@ -25,6 +26,7 @@ public class Const {
                 ServicePassword = "ATP";
                 ServiceUserId = "ATP";
                 ROOT_URL = "http://mysnapps.mydeievents.com:90/AndroidService.svc/";
+                ROOT_URL_FILE_UPLOAD = "http://mysnapps.mydeievents.com:90/FileService.svc/";
                 break;
 
             case ATLANTIS_BETA:
@@ -32,6 +34,7 @@ public class Const {
                 ServicePassword = "ATP";
                 ServiceUserId = "ATP";
                 ROOT_URL = "http://mobileservicebeta.mydeievents.com/AndroidService.svc/";
+                ROOT_URL_FILE_UPLOAD = "http://mobileservicebeta.mydeievents.com/FileService.svc/";
                 break;
         }
     }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pushtouch="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <mysnapp.app.dei.com.mysnapp.utils.textrotation.StickerView
+        android:id="@+id/sticker_singleFingerView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        pushtouch:centerInParent="false"
+        pushtouch:image_height="40dp"
+        pushtouch:image_width="60dp"
+        pushtouch:push_image="@mipmap/push_btn"
+        pushtouch:push_image_height="30dp"
+        pushtouch:push_image_width="30dp"
+        />
+
+</RelativeLayout>

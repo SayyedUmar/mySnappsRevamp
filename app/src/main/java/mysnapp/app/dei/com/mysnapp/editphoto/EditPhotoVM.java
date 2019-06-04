@@ -26,6 +26,7 @@ public class EditPhotoVM extends ViewModel {
     private List<Fragment> fragments = new ArrayList<>();
     private SingleLiveData<Border> borderLiveData;
     private SingleLiveData<Graphic> graphicsLiveData;
+    public SingleLiveData<Boolean> imageObserver;
 
     public SingleLiveData<Border> getBorderLiveData() {
         return borderLiveData;
@@ -37,6 +38,7 @@ public class EditPhotoVM extends ViewModel {
 
     public void init(Image image, FragmentActivity activity) {
         repo = new EditPhotoRepo();
+        imageObserver = repo.imageObserver;
         this.image = image;
         titles.add("Border");
         titles.add("Sticker");
@@ -98,6 +100,6 @@ public class EditPhotoVM extends ViewModel {
     }
 
     public void uploadImageBitmap(Bitmap bitmap) {
-        repo.uploadImageBitmap(bitmap);
+        repo.uploadImageBitmap(bitmap, image);
     }
 }

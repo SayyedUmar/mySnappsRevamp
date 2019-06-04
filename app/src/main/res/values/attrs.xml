@@ -17,4 +17,22 @@
     </declare-styleable>
 
 
+
+
+    <declare-styleable name="RotateLayout_Layout">
+        <attr name="layout_angle" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="SingleFingerView">
+        <attr name="image" format="reference" />
+        <attr name="image_width" format="dimension" />
+        <attr name="image_height" format="dimension" />
+        <attr name="push_image" format="reference" />
+        <attr name="push_image_width" format="dimension" />
+        <attr name="push_image_height" format="dimension" />
+        <attr name="top" format="dimension" />
+        <attr name="left" format="dimension" />
+        <attr name="centerInParent" format="boolean" />
+    </declare-styleable>
+
+
 </resources>

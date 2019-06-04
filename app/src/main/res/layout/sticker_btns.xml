@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent">
+
+    <ImageView
+        android:id="@+id/iv_sticker"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_gravity="top|left"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal"
+        android:src="@mipmap/image_loader"
+        android:tag="213"></ImageView>
+
+    <ImageView
+        android:id="@+id/push_view"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="top|left"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:background="#aa333333"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <ImageView
+        android:id="@+id/delete_view"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="top|left"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="0dp"
+        android:background="#aa333333"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:scaleType="fitXY"
+        android:visibility="visible" />
+
+</FrameLayout>
