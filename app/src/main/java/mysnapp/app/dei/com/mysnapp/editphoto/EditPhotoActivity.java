@@ -1,5 +1,6 @@
 package mysnapp.app.dei.com.mysnapp.editphoto;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.res.Resources;
@@ -153,6 +154,7 @@ public class EditPhotoActivity extends SuperActivity {
             }*/
             linlay_back.setLayoutParams(new FrameLayout.LayoutParams(width, height, Gravity.CENTER));
             linlay_back.setBackground(framedrawable);
+            file = null;
 
         });
 
@@ -161,17 +163,32 @@ public class EditPhotoActivity extends SuperActivity {
             if (stickerRoot == null) {
                 stickerRoot = getLayoutInflater().inflate(R.layout.sticker_editing, null);
                 stickerView = stickerRoot.findViewById(R.id.sticker_singleFingerView);
-                frameContainer.addView(stickerRoot);
+                linlay_back.addView(stickerRoot);
             }
-            FrameLayout.LayoutParams sparms =  sparms = new FrameLayout.LayoutParams(imageView.getWidth(), imageView.getHeight());
+
+            //linlay_back.setLayoutParams(new FrameLayout.LayoutParams(imageView.getWidth(), imageView.getHeight(), Gravity.CENTER));
+
+            LinearLayout.LayoutParams sparms = new LinearLayout.LayoutParams(imageView.getWidth(), imageView.getHeight());
             sparms.gravity = Gravity.CENTER;
             frameContainer.setLayoutParams(sparms);
 
-            ImageView btnDelete = stickerView.getDeleteButton();
-            final ImageView stickImageView = stickerView.getImageView();
+            stickerView.getDeleteButton().setOnClickListener(view -> {
+                AlertDialog dialog1;
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Want to delete this sticker?");
+                builder.setPositiveButton(android.R.string.yes, (dialogInterface, i) -> {
+                    linlay_back.removeView(stickerRoot);
+                    stickerRoot = null;
+                });
+                builder.setNegativeButton(android.R.string.no, (d, i) -> d.dismiss());
+                dialog1 = builder.create();
+                dialog1.show();
+            });
 
-            btnDelete.setOnClickListener(view -> {});
-
+            File file = MyApp.getImageLoader().getDiskCache().get(graphic.getGraphicFilePath().replace(" ", ""));
+            Bitmap sticker = BitmapFactory.decodeFile(file.getPath());
+            stickerView.getImageView().setImageBitmap(sticker);
+            file = null;
         });
 
         viewModel.imageObserver.observe(this, aBoolean -> {

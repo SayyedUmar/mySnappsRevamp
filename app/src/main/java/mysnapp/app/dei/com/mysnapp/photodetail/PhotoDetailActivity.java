@@ -127,36 +127,35 @@ public class PhotoDetailActivity extends SuperActivity {
 
         tvEdit.setOnClickListener(v -> {
             viewModel.enableBackground(tvEdit, tvSave, tvShare, tvPurchase);
+            startActivity(new Intent(this, EditPhotoActivity.class)
+                    .putExtra("ITEM", viewModel.getModel())
+            );
         });
+
         tvSave.setOnClickListener(v -> {
             viewModel.enableBackground(tvSave, tvEdit, tvShare, tvPurchase);
             saveORshareImage(true);
         });
+
         tvShare.setOnClickListener(v -> {
             viewModel.enableBackground(tvShare, tvEdit, tvSave, tvPurchase);
             saveORshareImage(false);
         });
+
         tvPurchase.setOnClickListener(v -> {
-            startActivity(new Intent(this, EditPhotoActivity.class)
-                    .putExtra("ITEM", viewModel.getModel())
-            );
             viewModel.enableBackground(tvPurchase, tvEdit, tvSave, tvShare);
         });
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
             @Override
             public void onPageSelected(int position) {
                 viewModel.setModel(position);
                 viewModel.getImageLoader().displayImage(viewModel.getModel().getImageUrl(), imageView, MyApp.getDisplayImageOptions());
             }
-
             @Override
-            public void onPageScrollStateChanged(int state) {
-            }
+            public void onPageScrollStateChanged(int state) { }
         });
     }
 
@@ -176,7 +175,7 @@ public class PhotoDetailActivity extends SuperActivity {
                         }
                     }
                 })
-                .onDenied(permissions -> Logs.shortToast(getApplicationContext(), "Storage access permission denied!"))
+                .onDenied(permissions -> Logs.shortToast(getApplicationContext(), "Storage access permission denied"))
                 .start();
     }
 
