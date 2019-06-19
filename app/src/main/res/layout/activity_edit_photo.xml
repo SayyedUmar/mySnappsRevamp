@@ -62,7 +62,6 @@
 
     </LinearLayout>
 
-
     <jp.co.cyberagent.android.gpuimage.GPUImageView
         android:visibility="gone"
         android:id="@+id/gpuImageView"
@@ -88,6 +87,20 @@
         android:layout_marginTop="-50dp"
         android:layout_centerHorizontal="true"
         android:text="Save"
+        android:textSize="18sp"
+        android:background="@drawable/bg_rect_round_gray"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/tvRestore"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/rellay2"
+        android:layout_toRightOf="@+id/tvSave"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="-50dp"
+        android:text="Restore"
         android:textSize="18sp"
         android:background="@drawable/bg_rect_round_gray"
         android:gravity="center"

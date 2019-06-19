@@ -46,10 +46,12 @@ public class EditPhotoActivity extends SuperActivity {
     TextView tvHeading;
     @BindView(R.id.img_back)
     ImageView img_back;
-    @BindView(R.id.tvSave)
-    TextView tvSave;
     @BindView(R.id.frameContainer)
     FrameLayout frameContainer;
+    @BindView(R.id.tvSave)
+    TextView tvSave;
+    @BindView(R.id.tvRestore)
+    TextView tvRestore;
 
     private EditPhotoVM viewModel;
     private Dialog dialog;
@@ -88,6 +90,10 @@ public class EditPhotoActivity extends SuperActivity {
 
     private void setEventListeners() {
         img_back.setOnClickListener(v -> onBackPressed());
+
+        tvRestore.setOnClickListener(view -> {
+            viewModel.restoreImage();
+        });
 
         viewModel.getLiveBorders().observe(this, val -> {
             if (val != null && val.size() > 0) {

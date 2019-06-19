@@ -102,4 +102,8 @@ public class EditPhotoVM extends ViewModel {
     public void uploadImageBitmap(Bitmap bitmap) {
         repo.uploadImageBitmap(bitmap, image);
     }
+
+    public void restoreImage() {
+        repo.restoreImage(image);
+    }
 }

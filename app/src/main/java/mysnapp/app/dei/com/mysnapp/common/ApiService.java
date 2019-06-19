@@ -52,4 +52,9 @@ public interface ApiService<T> {
     Call<ResponseBody> uploadFile1(@Header("Content-Type") String type,
                                    @Body RequestModel model
     );
+
+    @POST("Restore")
+    Call<ResponseBody> restoreImage (@Header("Content-Type") String type,
+                                     @Body RequestModel model
+    );
 }

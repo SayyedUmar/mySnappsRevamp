@@ -165,11 +165,32 @@ public class EditPhotoRepo {
                         JSONObject res = new JSONObject(response.errorBody().string());
                         Logs.shortToast(MyApp.getAppContext(), res.getString("ResponseMessage"));
                     }
-                }catch(Exception e) { e.printStackTrace(); }
+                }catch(Exception e) { e.printStackTrac˛e(); }
             }
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Logs.shortToast(MyApp.getAppContext(), t.getMessage());
+            }
+        });
+    }
+
+    public void restoreImage(Image image) {
+        ReqData data = new ReqData();
+        data.ImageId = image.getImageId();
+        data.IsStockShot = image.getIsStockShot();
+        apiService.restoreImage("application/json", new RequestModel(data)).enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                if (response.isSuccessful()) {
+                    Logs.shortToast(MyApp.getAppContext(),"success");
+                } else {
+                    Logs.shortToast(MyApp.getAppContext(),"failure");
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Logs.shortToast(MyApp.getAppContext(),"Error");
             }
         });
     }
